@@ -32,19 +32,10 @@
 		<!-- Skills -->
 		<section id="skills" class="mb-12 scroll-mt-24">
 			<h2 class="text-xl font-bold text-[var(--color-text-primary)] mb-4 pb-2 border-b border-[var(--color-border)]">Skills</h2>
-			<div class="space-y-2 text-sm">
-				<div class="flex gap-3">
-					<span class="font-mono text-[var(--color-accent-blue)] w-44 shrink-0">Languages</span>
-					<span class="text-[var(--color-text-secondary)]">Go, Python, TypeScript, Java, C, Lua, R</span>
-				</div>
-				<div class="flex gap-3">
-					<span class="font-mono text-[var(--color-accent-blue)] w-44 shrink-0">Tools</span>
-					<span class="text-[var(--color-text-secondary)]">Git, Kubernetes, Docker, Neovim, Grafana, Azure, GCP, AWS, Fly.io, Kafka</span>
-				</div>
-				<div class="flex gap-3">
-					<span class="font-mono text-[var(--color-accent-blue)] w-44 shrink-0">Libraries / Frameworks</span>
-					<span class="text-[var(--color-text-secondary)]">FastAPI, Svelte, Prisma, PyTorch, NumPy, React</span>
-				</div>
+			<div class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
+				<p>I mostly write <strong class="text-[var(--color-text-primary)] font-medium">Go</strong> and <strong class="text-[var(--color-text-primary)] font-medium">Python</strong> day-to-day, with solid experience in <strong class="text-[var(--color-text-primary)] font-medium">TypeScript</strong> and <strong class="text-[var(--color-text-primary)] font-medium">C</strong>. I've also written Java, Lua, and R.</p>
+				<p>On the infrastructure side I work regularly with <strong class="text-[var(--color-text-primary)] font-medium">Kubernetes</strong>, <strong class="text-[var(--color-text-primary)] font-medium">Docker</strong>, and <strong class="text-[var(--color-text-primary)] font-medium">Grafana</strong>, and I've run production workloads on Azure, GCP, AWS, and Fly.io.</p>
+				<p>For frameworks I reach for <strong class="text-[var(--color-text-primary)] font-medium">FastAPI</strong> and <strong class="text-[var(--color-text-primary)] font-medium">Svelte</strong> most often; I've also built things with React, PyTorch, NumPy, and Prisma.</p>
 			</div>
 		</section>
 
