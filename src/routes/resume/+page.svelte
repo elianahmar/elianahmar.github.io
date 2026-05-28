@@ -33,9 +33,7 @@
 		<section id="skills" class="mb-12 scroll-mt-24">
 			<h2 class="text-xl font-bold text-[var(--color-text-primary)] mb-4 pb-2 border-b border-[var(--color-border)]">Skills</h2>
 			<div class="space-y-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
-				<p>I mostly write <strong class="text-[var(--color-text-primary)] font-medium">Go</strong> and <strong class="text-[var(--color-text-primary)] font-medium">Python</strong> day-to-day, with solid experience in <strong class="text-[var(--color-text-primary)] font-medium">TypeScript</strong> and <strong class="text-[var(--color-text-primary)] font-medium">C</strong>. I've also written Java, Lua, and R.</p>
-				<p>On the infrastructure side I work regularly with <strong class="text-[var(--color-text-primary)] font-medium">Kubernetes</strong>, <strong class="text-[var(--color-text-primary)] font-medium">Docker</strong>, and <strong class="text-[var(--color-text-primary)] font-medium">Grafana</strong>, and I've run production workloads on Azure, GCP, AWS, and Fly.io.</p>
-				<p>For frameworks I reach for <strong class="text-[var(--color-text-primary)] font-medium">FastAPI</strong> and <strong class="text-[var(--color-text-primary)] font-medium">Svelte</strong> most often; I've also built things with React, PyTorch, NumPy, and Prisma.</p>
+				<p>I mostly write <strong class="text-[var(--color-text-primary)] font-medium">Go</strong> and <strong class="text-[var(--color-text-primary)] font-medium">Python</strong> day-to-day, and I've been doing more <strong class="text-[var(--color-text-primary)] font-medium">Rust</strong> lately. On the infrastructure side: Kubernetes, Docker, Grafana, and production workloads across Azure, GCP, AWS, and Fly.io. For frameworks I reach for FastAPI and Svelte most often.</p>
 			</div>
 		</section>
 
