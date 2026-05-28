@@ -14,7 +14,7 @@
 	<meta property="og:title" content="Elian Ahmar — Software Engineer" />
 	<meta property="og:description" content="Software Engineer specializing in reliability engineering, AI infrastructure, and backend systems." />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://throwea.github.io" />
+	<meta property="og:url" content="https://elianahmar.github.io" />
 </svelte:head>
 
 <Hero />

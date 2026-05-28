@@ -3,7 +3,7 @@ export const personal = {
 	title: 'Software Engineer',
 	subtitle: 'Reliability Engineering · AI Infrastructure · Backend Systems',
 	email: 'elian.ahmar@gmail.com',
-	github: 'https://github.com/throwea',
+	github: 'https://github.com/elianahmar',
 	linkedin: 'https://www.linkedin.com/in/eahmar/',
 	education: {
 		school: 'Rice University',
