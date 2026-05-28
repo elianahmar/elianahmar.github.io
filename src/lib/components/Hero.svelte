@@ -47,7 +47,7 @@
 				? 'opacity-100 translate-y-0'
 				: 'opacity-0 translate-y-8'}"
 		>
-			<a href="#experience" class="inline-block text-[var(--color-text-secondary)] hover:text-[var(--color-accent-blue)] transition-colors" aria-label="Scroll to experience section">
+			<a href="#projects" class="inline-block text-[var(--color-text-secondary)] hover:text-[var(--color-accent-blue)] transition-colors" aria-label="Scroll to projects">
 				<svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
 				</svg>

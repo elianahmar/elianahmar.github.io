@@ -1,35 +1,19 @@
 <script lang="ts">
 	import { personal, navItems } from '$lib/data/personal';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 
-	let activeSection = $state('home');
 	let mobileOpen = $state(false);
 	let scrolled = $state(false);
 
 	onMount(() => {
 		const handleScroll = () => {
 			scrolled = window.scrollY > 20;
-
-			const sections = navItems.map((item) => item.href.replace('#', ''));
-			for (let i = sections.length - 1; i >= 0; i--) {
-				const el = document.getElementById(sections[i]);
-				if (el) {
-					const rect = el.getBoundingClientRect();
-					if (rect.top <= 120) {
-						activeSection = sections[i];
-						break;
-					}
-				}
-			}
 		};
 
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
-
-	function handleNavClick() {
-		mobileOpen = false;
-	}
 </script>
 
 <nav
@@ -38,7 +22,7 @@
 		: 'bg-transparent'}"
 >
 	<div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-		<a href="#home" class="font-mono text-[var(--color-accent-blue)] text-sm font-semibold hover:text-[var(--color-accent-green)] transition-colors">
+		<a href="/" class="font-mono text-[var(--color-accent-blue)] text-sm font-semibold hover:text-[var(--color-accent-green)] transition-colors">
 			{personal.name.toLowerCase().replace(' ', '_')}
 		</a>
 
@@ -47,9 +31,9 @@
 			{#each navItems as item}
 				<a
 					href={item.href}
-					onclick={handleNavClick}
+					onclick={() => (mobileOpen = false)}
 					class="px-3 py-2 text-sm font-mono transition-colors rounded-md
-						{activeSection === item.href.replace('#', '')
+					{page.url.pathname === item.href
 						? 'text-[var(--color-accent-blue)] bg-[var(--color-bg-elevated)]'
 						: 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'}"
 				>
@@ -80,9 +64,9 @@
 			{#each navItems as item}
 				<a
 					href={item.href}
-					onclick={handleNavClick}
+					onclick={() => (mobileOpen = false)}
 					class="block py-2 text-sm font-mono transition-colors
-						{activeSection === item.href.replace('#', '')
+					{page.url.pathname === item.href
 						? 'text-[var(--color-accent-blue)]'
 						: 'text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'}"
 				>

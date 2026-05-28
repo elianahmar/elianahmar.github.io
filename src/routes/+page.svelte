@@ -1,11 +1,7 @@
 <script lang="ts">
 	import Hero from '$lib/components/Hero.svelte';
-	import Experience from '$lib/components/Experience.svelte';
 	import Projects from '$lib/components/Projects.svelte';
-	import Skills from '$lib/components/Skills.svelte';
-	import Awards from '$lib/components/Awards.svelte';
 	import About from '$lib/components/About.svelte';
-	import Contact from '$lib/components/Contact.svelte';
 </script>
 
 <svelte:head>
@@ -24,9 +20,5 @@
 	<div class="h-px bg-[var(--color-border)]"></div>
 </div>
 
-<Experience />
 <Projects />
-<Skills />
-<Awards />
 <About />
-<Contact />
