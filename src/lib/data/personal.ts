@@ -23,10 +23,8 @@ export const personal = {
 };
 
 export const navItems = [
-	{ label: 'Home', href: '#home' },
-	{ label: 'Experience', href: '#experience' },
-	{ label: 'Projects', href: '#projects' },
-	{ label: 'Skills', href: '#skills' },
-	{ label: 'About', href: '#about' },
-	{ label: 'Contact', href: '#contact' }
+	{ label: 'Home', href: '/' },
+	{ label: 'Resume/CV', href: '/resume' },
+	{ label: 'Tech-Writing', href: '/tech-writing' },
+	{ label: 'Contact', href: '/contact' }
 ];
