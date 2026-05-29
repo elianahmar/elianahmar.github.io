@@ -83,7 +83,7 @@
 				<div>
 					<div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-3">
 						<h3 class="text-base font-semibold text-[var(--color-text-primary)]">
-							<a href="https://aicamp.ai" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-accent-blue)] transition-colors">AI Camp</a>
+							<a href="https://www.ai-camp.org/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-accent-blue)] transition-colors">AI Camp</a>
 							— Software Engineer
 						</h3>
 						<span class="font-mono text-xs text-[var(--color-text-secondary)] shrink-0">Dec 2022 – Nov 2024</span>
@@ -135,7 +135,7 @@
 						<h3 class="text-base font-semibold text-[var(--color-text-primary)]">
 							<a href="https://d2k.rice.edu" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-accent-blue)] transition-colors">D2K Lab, Rice University</a>
 							/
-							<a href="https://www.mic-aic.com" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-accent-blue)] transition-colors">Medical Informatics Corporation</a>
+							<a href="https://sickbay.com/company/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-accent-blue)] transition-colors">Medical Informatics Corporation (Sickbay)</a>
 							— ML Engineer Intern
 						</h3>
 						<span class="font-mono text-xs text-[var(--color-text-secondary)] shrink-0">Aug 2022 – Dec 2022</span>
