@@ -12,7 +12,7 @@
 		<img
 			src="/elian.jpeg"
 			alt="Elian Ahmar"
-			class="w-36 h-36 rounded-full object-cover shrink-0 ring-2 ring-[var(--color-border)]"
+			class="w-48 rounded-lg shrink-0"
 		/>
 		<div>
 			<h1 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4">Elian Ahmar</h1>
