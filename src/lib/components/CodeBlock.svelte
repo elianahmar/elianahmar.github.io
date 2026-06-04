@@ -1,12 +1,9 @@
 <script lang="ts">
-	let { code, lang = 'go' }: { code: string; lang?: string } = $props();
+	let { html }: { html: string } = $props();
 </script>
 
 <div class="code-block my-6">
-	<div class="code-header">
-		<span class="lang-label">{lang}</span>
-	</div>
-	<pre class="code-body"><code>{code}</code></pre>
+	{@html html}
 </div>
 
 <style>
@@ -14,38 +11,39 @@
 		border: 1px solid var(--color-border);
 		border-radius: 8px;
 		overflow: hidden;
-		background-color: var(--color-bg-elevated);
 	}
 
-	.code-header {
-		display: flex;
-		align-items: center;
-		padding: 0.5rem 1rem;
-		background-color: var(--color-bg-card);
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.lang-label {
-		font-family: var(--font-mono);
-		font-size: 0.7rem;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: var(--color-text-secondary);
-	}
-
-	.code-body {
+	.code-block :global(pre.shiki) {
 		overflow-x: auto;
 		padding: 1.25rem 1.5rem;
 		margin: 0;
 		font-family: var(--font-mono);
 		font-size: 0.875rem;
 		line-height: 1.7;
-		color: var(--color-text-primary);
-		tab-size: 4;
+		border-radius: 0;
+		background-color: #0d1117 !important; /* match site bg-primary */
 	}
 
-	code {
+	.code-block :global(pre.shiki code) {
 		font-family: inherit;
-		white-space: pre;
+		background: none;
+		padding: 0;
+		border: none;
+		border-radius: 0;
+		font-size: inherit;
+		color: inherit;
+	}
+
+	/* Subtle top bar showing it's a code block */
+	.code-block :global(pre.shiki::before) {
+		content: '';
+		display: block;
+		height: 3px;
+		background: linear-gradient(
+			90deg,
+			var(--color-accent-blue),
+			var(--color-accent-green)
+		);
+		margin: -1.25rem -1.5rem 1.25rem;
 	}
 </style>
