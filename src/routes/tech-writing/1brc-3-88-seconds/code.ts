@@ -334,7 +334,6 @@ Tamale;28.3
 `
 
 export const p4Pprof = `(pprof) list Compute
-Total: 107.66s
 ROUTINE ======================== github.com/throwea/1brc-go/pkg/preprocessor.(*P4).Compute in /Users/elianahmar/Development/1brc-personal/pkg/preprocessor/p4.go
       60ms    106.22s (flat, cum) 98.66% of Total
          .          .     35:func (p4 *P4) Compute() map[string]*model.Measurement {

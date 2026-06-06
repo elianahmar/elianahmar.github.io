@@ -199,29 +199,29 @@
 			</p>
 			<p>
 				This brought me to Go's <code>unsafe</code> package. The TL;DR is that
-				this package providers zero-cost conversions over byte arrays. I like to
+				this package provides zero-cost conversions over byte arrays. I like to
 				think about it as a "trust me bro" moment with the compiler. Under the
 				hood you are creating a string header that points to a memory location
-				in a byte slice and defining its length. This is powerful because a
-				plain
+				in a byte slice and defining its length. This is powerful because
 				<code>string(byteSlice)</code>
 				is O(n) because it copies the bytes. With <code>unsafe</code> that cost becomes
-				O(1).This can be dangerous if the underlying byte array changes (which it
+				O(1). This can be dangerous if the underlying byte array changes (which it
 				does), but I knew I had a powerful tool here for reducing latency.
 			</p>
 			<p>
 				I used <code>unsafe</code> to perform the map lookup, and only create a
-				copy when a novel city appears that isn't already in the map. That trick
-				brought my solution down to
+				copy when a novel city appears that isn't in the map. That trick brought
+				my solution down to
 				<strong>56 seconds</strong>!
 			</p>
 			<CodeBlock html={data.p5} />
 			<Callout>
-				You might be wondering, why can't I use the unsafe string in the case of
-				an unseen city? The problem there is that the underlying byte array
+				You might be wondering, why do I need to copy the unsafe string in the
+				case of an unseen city? The problem is that the underlying byte array
 				which is being used for reading the file can change. And if I use the
-				unsafe string it would be mutated. And corrupt the key. I found this out
-				the hard way...
+				unsafe string it would be mutated since the we are using a single
+				fixed-sized cyclic buffer to process the entire file. Subsequently our
+				map's keys would become corrupted. I found this out the hard way...
 			</Callout>
 		</section>
 
@@ -247,9 +247,9 @@
 				I allocated the <code>numByte</code> array inside the function itself
 				and clear it on each call with <code>numByte[:0]</code>. This keeps the
 				memory on the stack rather than escaping to the heap. I learned this
-				trick from performance-sensitive work at my day job - my go LSP in
-				Neovim has an option to surface the compiler's escape analysis, which
-				helped me catch this.
+				trick from performance-sensitive work at my day job. My Go LSP has an
+				option to surface the compiler's escape analysis, which helped me catch
+				this.
 			</Callout>
 		</section>
 
@@ -261,13 +261,14 @@
 				every line of code - be it mine or from the standard library - must
 				serve a purpose. So <code>bytes.Cut()</code> had to go. There was just
 				too much extra computation happening in that method that I didn't need.
-				I knew for a fact that every line had the structure:
+				Also, I knew and validated that every line maintains the following form:
 				<code>&lt;city&gt;;&lt;temperature&gt;\n</code>.
 			</p>
 			<p>
-				I could parse all of this myself, and doing so ensures I keep memory on
-				the stack. I wrote out the logic for parsing the whole line manually.
-				Going from 44 seconds to <strong>38 seconds</strong>.
+				<!--TODO: is this an accurate statement-->
+				I could parse all of this myself, and doing so ensures I keep memory on the
+				stack. I wrote out the logic for parsing the whole line manually. Going from
+				44 seconds to <strong>38 seconds</strong>.
 			</p>
 			<CodeBlock html={data.p11} />
 		</section>
@@ -284,6 +285,7 @@
 				Microbenchmarking revealed it took 3 seconds just to read the entire
 				file.
 			</p>
+			<CodeBlock html={data.p4Dump} />
 			<p>
 				Since my initial chunked reading attempt had failed, I'd brushed off the
 				idea. But after revisiting it, I realized it was the only way to get a
