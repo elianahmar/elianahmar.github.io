@@ -15,6 +15,7 @@ export async function load() {
 	return {
 		p1: highlight(snippets.p1Code),
 		p4: highlight(snippets.p4Code),
+		p4Dump: highlight(snippets.p4Pprof),
 		p5: highlight(snippets.p5Code),
 		p9: highlight(snippets.p9Code),
 		p11: highlight(snippets.p11Code),

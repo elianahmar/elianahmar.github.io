@@ -332,3 +332,36 @@ Rangpur;23.5
 Jakarta;33.4
 Tamale;28.3
 `
+
+export const p4Pprof = `(pprof) list Compute
+Total: 107.66s
+ROUTINE ======================== github.com/throwea/1brc-go/pkg/preprocessor.(*P4).Compute in /Users/elianahmar/Development/1brc-personal/pkg/preprocessor/p4.go
+      60ms    106.22s (flat, cum) 98.66% of Total
+         .          .     35:func (p4 *P4) Compute() map[string]*model.Measurement {
+         .          .     36:   // Brute force this. Read line by line and update a table
+         .          .     37:   file := utils.PanicE(os.Open(p4.Path))
+         .          .     38:   defer file.Close()
+         .          .     39:   fileScanner := bufio.NewScanner(file)
+         .          .     40:   delim := []byte{';'}
+         .          .     41:   measurements := make(map[string]*model.Measurement, 512) 
+      10ms    105.24s     42:   for fileScanner.Scan() {
+         .          .     43:           line := fileScanner.Bytes()
+         .          .     44:           // process the line itself
+         .          .     45:           city, num, found := bytes.Cut(line, delim)
+         .      260ms     46:           cityName := string(city)
+         .          .     47:           utils.PanicIf(!found, "bytes not found?", nil)
+         .      210ms     48:           temp := utils.PanicE(strconv.ParseFloat(string(num), 64))
+         .      150ms     49:           if _, exists := measurements[cityName]; !exists {
+         .          .     50:                   measurements[cityName] = &model.Measurement{City: cityName}
+         .          .     51:           }
+      20ms       70ms     52:           measurements[cityName].Temps += temp
+         .       70ms     53:           measurements[cityName].Count += 1
+      30ms      130ms     54:           measurements[cityName].Max = math.Max(measurements[cityName].Max, temp)
+         .       90ms     55:           measurements[cityName].Min = math.Min(measurements[cityName].Min, temp)
+         .          .     56:   }
+         .          .     57:   return measurements
+         .          .     58:}
+         .          .     59:
+         .          .     60:// func (p4 *P4) Compute() map[string]*model.Measurement {
+(pprof)
+`
