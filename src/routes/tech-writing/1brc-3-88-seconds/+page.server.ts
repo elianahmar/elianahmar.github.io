@@ -21,6 +21,7 @@ export async function load() {
 		p13: highlight(snippets.p13Code),
 		digit: highlight(snippets.digitCode),
 		ptr: highlight(snippets.ptrCode),
-		p17: highlight(snippets.p17Code)
+		p17: highlight(snippets.p17Code),
+		sampleData: highlight(snippets.sampleData)
 	};
 }

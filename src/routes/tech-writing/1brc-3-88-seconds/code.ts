@@ -324,3 +324,11 @@ export const p17Code = `func (p17 *P17) Compute() map[string]*model.MeasurementI
 	}
 	return finalMeasure
 }`;
+
+export const sampleData = `
+Batumi;17.4
+Rabat;28.6
+Rangpur;23.5
+Jakarta;33.4
+Tamale;28.3
+`
