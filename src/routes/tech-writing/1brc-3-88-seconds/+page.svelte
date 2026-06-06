@@ -6,10 +6,10 @@
 </script>
 
 <svelte:head>
-	<title>1BRC in 3.88 Seconds — Elian Ahmar</title>
+	<title>1BRC in 3.88 Seconds</title>
 	<meta
 		name="description"
-		content="How I solved the One Billion Row Challenge in 3.88 seconds using Go — a deep dive into file chunking, unsafe string tricks, single-pass parsing, and concurrent goroutine synchronization."
+		content="Solving the One Billion Row Challenge in 3.88 seconds using Go"
 	/>
 	<meta property="og:title" content="1BRC in 3.88 Seconds" />
 	<meta
@@ -145,7 +145,7 @@
 
 		<!-- Wrong direction -->
 		<section class="mb-16">
-			<h2>Steps in the Wrong Direction — More Concurrency</h2>
+			<h2>Steps in the Wrong Direction; More Concurrency</h2>
 			<p>
 				After seeing my first result, I thought I could improve the runtime by
 				chunk-reading the file and pushing each chunk to be processed. I could
@@ -247,7 +247,7 @@
 				I allocated the <code>numByte</code> array inside the function itself
 				and clear it on each call with <code>numByte[:0]</code>. This keeps the
 				memory on the stack rather than escaping to the heap. I learned this
-				trick from performance-sensitive work at my day job — my go LSP in
+				trick from performance-sensitive work at my day job - my go LSP in
 				Neovim has an option to surface the compiler's escape analysis, which
 				helped me catch this.
 			</Callout>
@@ -257,11 +257,11 @@
 		<section class="mb-16">
 			<h2>Remove bytes.Cut()</h2>
 			<p>
-				This is where things got <em>real.</em> If I want to make this code
-				fast, every line of code — be it mine or from the standard library —
-				must serve a purpose. So <code>bytes.Cut()</code> had to go. There was
-				just too much extra computation happening in that method that I didn't
-				need. I knew for a fact that every line had the structure:
+				Things are getting a bit more intense. If I want to make this code fast,
+				every line of code - be it mine or from the standard library - must
+				serve a purpose. So <code>bytes.Cut()</code> had to go. There was just
+				too much extra computation happening in that method that I didn't need.
+				I knew for a fact that every line had the structure:
 				<code>&lt;city&gt;;&lt;temperature&gt;\n</code>.
 			</p>
 			<p>
@@ -277,7 +277,7 @@
 			<h2>Revisiting Chunk File Reading</h2>
 			<p>
 				I was really scratching my head at this point. I knew better solutions
-				existed — I'd heard of people solving this in under 5 seconds. After
+				existed - I'd heard of people solving this in under 5 seconds. After
 				running microbenchmarks I revisited chunked file reading. The pprof
 				dumps were still showing syscalls consuming a majority of the latency,
 				which made sense since I was still scanning each line one at a time.
@@ -290,7 +290,7 @@
 				truly performant solution. The key insight: this problem <em>is</em>
 				solvable using <code>bytes.LastIndexByte()</code> to find the last newline
 				in each buffer, giving me a clean boundary to cut on. I could use that to
-				produce ranges of byte offsets to read from the file — concurrently.
+				produce ranges of byte offsets to read from the file - concurrently.
 			</p>
 			<p>
 				Those two modifications brought me from 38 seconds all the way to <strong
@@ -307,7 +307,7 @@
 				I could have wrapped up here, but I knew I could do better. After
 				profiling, I noticed a majority of the remaining time was spent in the <code
 					>processRange</code
-				> function — I was doing repeated work: scanning up to the newline, then
+				> function - I was doing repeated work: scanning up to the newline, then
 				rescanning the line to gather city and temperature. Breaking into sub-5 second
 				territory required a single-pass parse.
 			</p>
@@ -321,8 +321,8 @@
 					Correctly manage the byte pointer and ensure no out-of-bounds reads
 				</li>
 				<li>
-					Synchronize the two concurrent processes — the range producer and the
-					range consumer — with the main thread aggregating results
+					Synchronize the two concurrent processes - the range producer and the
+					range consumer - with the main thread aggregating results
 				</li>
 			</ol>
 
@@ -338,7 +338,7 @@
 			<h3>Pointer Management</h3>
 			<p>
 				The key is to track a single <code>ptr</code> index over the raw buffer
-				and advance it through each phase of the line — first to the
+				and advance it through each phase of the line - first to the
 				<code>;</code>, then through the temperature bytes, then past the
 				newline. Checking <code>ptr &lt; n</code> before every inner access prevents
 				out-of-bounds reads at the very end of the buffer.
@@ -351,7 +351,7 @@
 				from the chunker,
 				<code>mChan</code> carries per-range result maps, and <code>rSig</code>
 				is a boolean signal that coordinates closing <code>mChan</code> only
-				after every worker goroutine finishes — letting the main thread's
+				after every worker goroutine finishes - letting the main thread's
 				<code>range mChan</code> loop exit cleanly.
 			</p>
 			<CodeBlock html={data.p17} />
@@ -363,11 +363,11 @@
 			<p>A couple of optimizations I tabled for later:</p>
 			<ul>
 				<li>
-					<strong>Hyperparameter tuning</strong> — tuning buffer sizes, goroutine
+					<strong>Hyperparameter tuning</strong> - tuning buffer sizes, goroutine
 					counts, and other variables. My background in ML could help here.
 				</li>
 				<li>
-					<strong>Custom map implementation</strong> — some solutions do this,
+					<strong>Custom map implementation</strong> - some solutions do this,
 					but Go 1.24 introduced Swiss tables for the default map which is
 					optimized for reads.
 					<a
@@ -377,7 +377,7 @@
 					>
 				</li>
 				<li>
-					<strong><code>sync.Atomic</code></strong> — the fastest recorded Go
+					<strong><code>sync.Atomic</code></strong> - the fastest recorded Go
 					solution I found (2.70s) heavily utilizes atomics.
 					<a
 						href="https://github.com/aytechnet/1brc"
@@ -392,11 +392,11 @@
 		<section class="mb-16">
 			<h2>Conclusion</h2>
 			<p>
-				If you read this far, thank you. You might be wondering — what's the
+				If you read this far, thank you. You might be wondering - what's the
 				point? Why do all of this? In my day job, I write services that process
 				and provide observability across thousands of Kubernetes clusters. The
 				systems I work with maintain eventual consistency and store all of that
-				data in memory. We don't rely on databases — which I know sounds insane,
+				data in memory. We don't rely on databases - which I know sounds insane,
 				but I've made it work (I'll share that in a future article). All of this
 				runs in a single pod in a single cluster.
 			</p>
