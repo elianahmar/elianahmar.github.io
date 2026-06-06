@@ -325,7 +325,7 @@ export const p17Code = `func (p17 *P17) Compute() map[string]*model.MeasurementI
 	return finalMeasure
 }`;
 
-export const sampleData = `
+export const sampleData = `$ head -5 measurements.txt
 Batumi;17.4
 Rabat;28.6
 Rangpur;23.5
