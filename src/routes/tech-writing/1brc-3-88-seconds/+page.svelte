@@ -353,19 +353,25 @@
 				The key is to track a single <code>ptr</code> index over the raw buffer
 				and advance it through each phase of the line - first to the
 				<code>;</code>, then through the temperature bytes, then past the
-				newline. Checking <code>ptr &lt; n</code> before every inner access prevents
-				out-of-bounds reads at the very end of the buffer.
+				newline. Checking <code>ptr &lt; n</code> before every inner access
+				prevents out-of-bounds reads at the very end of the buffer. What's nice
+				about the Go API for reading bytes is that <code>file.ReadAt()</code> will
+				give the number of bytes it reads. This became the bound for my loop.
 			</p>
 			<CodeBlock html={data.ptr} />
-
 			<h3>Synchronization</h3>
 			<p>
-				The pattern uses three channels: <code>rChan</code> carries file ranges
-				from the chunker,
-				<code>mChan</code> carries per-range result maps, and <code>rSig</code>
+				In my final solution I utilize three channels: <code>rChan</code> which
+				stores the <code>Range</code> object so I know where to read and how
+				much to read.
+				<code>mChan</code> carries a map for a single processed range, and
+				<code>rSig</code>
 				is a boolean signal that coordinates closing <code>mChan</code> only
-				after every worker goroutine finishes - letting the main thread's
-				<code>range mChan</code> loop exit cleanly.
+				after every goroutine for processing the ranges finishes. The
+				<code>rSig</code>
+				signals the main thread's
+				<code>range mChan</code> to drain the channel and exit the loop after the
+				channel is fully consumed.
 			</p>
 			<CodeBlock html={data.p17} />
 		</section>
