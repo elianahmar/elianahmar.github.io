@@ -364,3 +364,9 @@ ROUTINE ======================== github.com/throwea/1brc-go/pkg/preprocessor.(*P
          .          .     60:// func (p4 *P4) Compute() map[string]*model.Measurement {
 (pprof)
 `
+
+export const singlePassDigit = `num = -12.4
+line[0] = '-', continue
+line[1] = '1', temp = 1 * 10 + int('1' - '0') => 11
+line[2] = '2', temp = 11 * 10 + int('2' - '0') => 112`
+

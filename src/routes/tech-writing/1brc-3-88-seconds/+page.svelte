@@ -322,15 +322,8 @@
 			<h2>Single Pass Parsing + Concurrent Range Computations</h2>
 			<p>
 				I could have wrapped up here, but I knew I could do better. After
-				profiling, I noticed a majority of the remaining time was spent in the <code
-					>processRange</code
-				> function - I was doing repeated work: scanning up to the newline, then
-				rescanning the line to gather city and temperature. Breaking into sub-5 second
-				territory required a single-pass parse.
-			</p>
-			<p>
-				There were three main challenges to achieving the final runtime of 3.88
-				seconds:
+				reviewing my code and reading through the dumps I realized there were
+				still three more opportunities for me to improve the performance:
 			</p>
 			<ol>
 				<li>Parse the digits and construct a number in a single pass</li>
@@ -338,8 +331,8 @@
 					Correctly manage the byte pointer and ensure no out-of-bounds reads
 				</li>
 				<li>
-					Synchronize the two concurrent processes - the range producer and the
-					range consumer - with the main thread aggregating results
+					Properly synchronize the range producer and consumer, with the main
+					thread aggregating results
 				</li>
 			</ol>
 
