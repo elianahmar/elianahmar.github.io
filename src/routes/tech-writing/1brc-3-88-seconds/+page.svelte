@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CodeBlock from "$lib/components/CodeBlock.svelte";
 	import Callout from "$lib/components/Callout.svelte";
+	import { singlePassDigit } from "./code.js";
 
 	let { data } = $props();
 </script>
@@ -338,11 +339,13 @@
 
 			<h3>Digit Parsing in One Pass</h3>
 			<p>
-				The trick is simple: multiply the accumulator by 10 before adding each
-				new digit. This builds up the integer left-to-right as you scan each
-				byte, with zero intermediate allocations. The sign is checked separately
-				after the loop.
+				The trick is simple: create a temp variable equal to 0. Then, multiply
+				the variable by 10 before adding each new digit. This builds up the
+				integer left-to-right as you scan each byte, with zero intermediate
+				allocations. The sign is checked separately and applied after the loop
+				completes after the loop.
 			</p>
+			<CodeBlock html={data.singlePassDigit} />
 			<CodeBlock html={data.digit} />
 
 			<h3>Pointer Management</h3>

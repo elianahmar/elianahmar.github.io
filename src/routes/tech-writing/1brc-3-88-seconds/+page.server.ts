@@ -23,6 +23,7 @@ export async function load() {
 		digit: highlight(snippets.digitCode),
 		ptr: highlight(snippets.ptrCode),
 		p17: highlight(snippets.p17Code),
+		singlePassDigit: highlight(snippets.singlePassDigit),
 		sampleData: highlight(snippets.sampleData)
 	};
 }
