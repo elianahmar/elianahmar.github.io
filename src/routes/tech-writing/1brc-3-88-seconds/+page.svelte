@@ -278,21 +278,28 @@
 			<h2>Revisiting Chunk File Reading</h2>
 			<p>
 				I was really scratching my head at this point. I knew better solutions
-				existed - I'd heard of people solving this in under 5 seconds. After
-				running microbenchmarks I revisited chunked file reading. The pprof
-				dumps were still showing syscalls consuming a majority of the latency,
-				which made sense since I was still scanning each line one at a time.
-				Microbenchmarking revealed it took 3 seconds just to read the entire
-				file.
+				existed and I had heard of people who solved the challenge in under 5
+				seconds. After running microbenchmarks I revisited chunked file reading.
+				The pprof dumps were still showing syscalls consuming a majority of the
+				latency, which made sense since I was still scanning each line one at a
+				time. Microbenchmarking revealed it took 3 seconds just to read the
+				entire file.
 			</p>
 			<CodeBlock html={data.p4Dump} />
 			<p>
 				Since my initial chunked reading attempt had failed, I'd brushed off the
 				idea. But after revisiting it, I realized it was the only way to get a
-				truly performant solution. The key insight: this problem <em>is</em>
-				solvable using <code>bytes.LastIndexByte()</code> to find the last newline
-				in each buffer, giving me a clean boundary to cut on. I could use that to
-				produce ranges of byte offsets to read from the file - concurrently.
+				truly performant solution. If you remember earlier I had mentioned that
+				the key issue with chunked file reading is that the bounary of the
+				chunks could be landing in the middle of a line. However, after some
+				more research into the docs I had discovered
+				<code>bytes.LastIndexByte()</code> which completely resolved my issue. What
+				I ended up doing is reading chunks of the files and tracking the last newline
+				break using the API mentioned. From there, I now had a valid range which
+				contained a starting index which would be the first character of a line and
+				an end index which would always land on a newline. I would store these ranges
+				in a list, and from that list I could concurrently read and process all of
+				the data for each chunk of the data.
 			</p>
 			<p>
 				Those two modifications brought me from 38 seconds all the way to <strong
@@ -300,6 +307,14 @@
 				>!
 			</p>
 			<CodeBlock html={data.p13} />
+			<Callout>
+				Writing to a map is an extremely fast operation. However, having
+				multiple go routines simoultaneously writing to a map requires mutexs
+				and I knew almost immediately that a mutex in this case would slow my
+				program down. Instead of updating a single map across multiple go
+				routines with mutex I just created a new map for every go routine, and
+				push the resulting map to a channel to be processed on the main thread.
+			</Callout>
 		</section>
 
 		<!-- Single pass -->
