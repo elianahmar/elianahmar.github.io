@@ -90,14 +90,14 @@
 				<CodeBlock html={data.sampleData} />
 
 				For all of the cities you must compute the min, max, and average
-				temperature for each city.
+				temperature for each city. For those who are interested,
 				<a
 					href="https://github.com/gunnarmorling/1brc"
 					target="_blank"
-					rel="noopener">Here</a
+					rel="noopener">here</a
 				>
-				is the link to the site explaining the challenge. The problem has many rules
-				but the ones worth mentioning:
+				is the link to the site explaining the challenge. Two important constraints
+				of this problem are the following:
 			</p>
 			<ul>
 				<li>Only packages from the Go standard library may be used</li>
@@ -108,14 +108,13 @@
 			</ul>
 			<p>
 				In some parts of the code you'll see methods that might be implemented
-				elsewhere. If you are wondering what they do please feel free to visit
-				the
+				in other packages. For the original source code please visit the
 				<a
 					href="https://github.com/elianahmar/1brc-personal"
 					target="_blank"
 					rel="noopener">repository</a
-				>. For this contest, I ran my solution on my MacBook Pro which has an M3
-				chip with 18GB of memory.
+				>. For this contest, I implemented and ran my solution on my MacBook Pro
+				which has an M3 chip with 18GB of memory.
 			</p>
 		</section>
 
