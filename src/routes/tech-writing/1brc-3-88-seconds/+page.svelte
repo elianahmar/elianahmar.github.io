@@ -64,18 +64,18 @@
 		<section class="mb-16">
 			<h2>Introduction</h2>
 			<p>
-				When I think about my absolute perfect day at work I imagine a day where
-				it's just me, my terminal, and a really difficult challenge to solve. In
-				particular, problems where I am optimizing latency on a complex
-				pipeline, refactoring a tangled mess of a codebase, or exploring a new
-				technical domain are the days where minutes turn to hours and I enter
-				into a flow state. For that reason, when had I come across the 1BRC
-				challenge I knew that this was a challenge that I could not pass up!
+				When I think about my perfect day at work I imagine a day where it's
+				just me, my terminal, and a really difficult problem. In particular,
+				problems where I am optimizing latency on a complex pipeline,
+				refactoring a tangled mess of a codebase, or exploring a new technical
+				domain are the days where minutes turn to hours and I enter into a flow
+				state. For that reason, when had I come across the 1BRC challenge I knew
+				that this was a challenge that I could not pass up!
 			</p>
 			<p>
-				Although I'm fashionably late to this party, I couldn't wait to roll up
-				my sleeves and take a crack at a problem that other talented developers
-				had tried and see how I stack up against the rest!
+				Although I'm fashionably late to the party, I am stoked to have finished
+				the project and even more stoked about the time I achieved! I hope you
+				enjoy this article and maybe even learn something in the process.
 			</p>
 		</section>
 
