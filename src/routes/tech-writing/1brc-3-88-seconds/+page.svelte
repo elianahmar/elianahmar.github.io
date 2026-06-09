@@ -62,7 +62,7 @@
 	<div class="prose-article">
 		<!-- Intro -->
 		<section class="mb-16">
-			<h2>Intro</h2>
+			<h2>Introduction</h2>
 			<p>
 				When I think about my absolute perfect day at work I imagine a day
 				without slack notifications, outside distractions, and a really
