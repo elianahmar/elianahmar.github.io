@@ -64,15 +64,13 @@
 		<section class="mb-16">
 			<h2>Introduction</h2>
 			<p>
-				When I think about my absolute perfect day at work I imagine a day
-				without slack notifications, outside distractions, and a really
-				difficult problem to solve. A simple day where it's just me, my
-				terminal, and problem at hand. Whether I'm optimizing latency on a
-				complex pipeline, refactoring a tangled mess of a codebase, or exploring
-				a new technical domain. Wrestling with problems like those are the days
-				when minutes turn to hours, and time seems to fly by. For that reason,
-				when I came across the 1BRC challenge this type of problem is exactly
-				what I love to do!
+				When I think about my absolute perfect day at work I imagine a day where
+				it's just me, my terminal, and a really difficult challenge at hand.
+				Problems where I'm optimizing latency on a complex pipeline, refactoring
+				a tangled mess of a codebase, or exploring a new technical domain. are
+				the days where minutes turn to hours and I find myself in flow state.
+				time. For that reason, when I came across the 1BRC challenge this type
+				of problem is exactly what I love to do!
 			</p>
 			<p>
 				Although I'm fashionably late to this party, I couldn't wait to roll up
@@ -170,15 +168,15 @@
 				After some time trying to optimize a fundamentally flawed solution I had
 				to take a step back. I decided to restart and completely rewrite the
 				solution from scratch with one important caveat: the entire solution
-				would run on the main thread. No concurrency, just simple file scanning,
+				would run on the main thread. No concurrency, just plain file scanning,
 				parsing, and map updates.
 			</p>
 			<p>
 				And boom! My fastest solution yet. The Go standard library offers a
-				clean API for reading a file line by line. I simply used <code
+				clean API for reading a file line by line. I used <code
 					>bufio.Scanner
 				</code>
-				to scan every line and updated a map. My new runtime:
+				to scan every line and update a map. My new runtime came down to
 				<strong>117 seconds</strong>. I was back on track!
 			</p>
 			<CodeBlock html={data.p4} />
@@ -190,13 +188,12 @@
 		<section class="mb-16">
 			<h2>Optimizing the Sequential Implementation with Unsafe</h2>
 			<p>
-				At this point, I had a simple enough solution that I knew I could
-				improve upon. I noticed that parsing the lines themselves could be
-				improved. I read through the implementation of <code>bytes.Cut</code> and
-				noticed it does extra computation I didn't need. Because I know the exact
-				shape of my data, I focused on optimizing that piece. I also wasn't a fan
-				of the fact that I was reading and copying data. Instinctually, I knew I
-				could do better.
+				At this point, I had a solution that I knew I could improve upon. I
+				noticed that parsing the lines themselves could be improved. I read
+				through the implementation of <code>bytes.Cut</code> and noticed it does
+				extra computation I didn't need. Because I know the exact shape of my data,
+				I focused on optimizing that piece. I also wasn't a fan of the fact that
+				I was reading and copying data. Instinctually, I knew I could do better.
 			</p>
 			<p>
 				This brought me to Go's <code>unsafe</code> package. The TL;DR is that
@@ -339,7 +336,7 @@
 
 			<h3>Digit Parsing in One Pass</h3>
 			<p>
-				The trick is simple: create a temp variable equal to 0. Then, multiply
+				Here's the algorithm: create a temp variable equal to 0. Then, multiply
 				the variable by 10 before adding each new digit. This builds up the
 				integer left-to-right as you scan each byte, with zero intermediate
 				allocations. The sign is checked separately and applied after the loop
@@ -430,8 +427,8 @@
 				Philosophically, I believe building performant systems is how you make
 				the world a better place. In many cases, performance could mean life and
 				death. For me it most certainly doesn't. But building software that is
-				highly performant simply makes my users more efficient and happier, and
-				that's enough for me!
+				highly performant makes my users more efficient and happier, and that's
+				enough for me!
 			</p>
 			<p>
 				The final result: <strong>3.88 seconds on 1 billion rows of text</strong
