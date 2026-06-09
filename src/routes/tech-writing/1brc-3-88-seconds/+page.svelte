@@ -65,12 +65,12 @@
 			<h2>Introduction</h2>
 			<p>
 				When I think about my absolute perfect day at work I imagine a day where
-				it's just me, my terminal, and a really difficult challenge at hand.
-				Problems where I'm optimizing latency on a complex pipeline, refactoring
-				a tangled mess of a codebase, or exploring a new technical domain. are
-				the days where minutes turn to hours and I find myself in flow state.
-				time. For that reason, when I came across the 1BRC challenge this type
-				of problem is exactly what I love to do!
+				it's just me, my terminal, and a really difficult challenge to solve. In
+				particular, problems where I am optimizing latency on a complex
+				pipeline, refactoring a tangled mess of a codebase, or exploring a new
+				technical domain are the days where minutes turn to hours and I enter
+				into a flow state. For that reason, when had I come across the 1BRC
+				challenge I knew that this was a challenge that I could not pass up!
 			</p>
 			<p>
 				Although I'm fashionably late to this party, I couldn't wait to roll up
