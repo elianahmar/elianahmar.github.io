@@ -464,8 +464,8 @@
 			<h2>Conclusion</h2>
 			<p>
 				If you read this far, thank you. You might be wondering - what's the
-				point? Why do all of this? In my day job, I write services that process
-				provide observability, and enable changes to hundreds of thousands of
+				point? Why do all of this? In my day job, I write services that provide
+				observability, and enable changes to hundreds of thousands of
 				deployments across thousands of Kubernetes clusters. And I've built and
 				optimized this service to such a degree that this entire service runs on
 				a single pod in a single region with an active passive configuration.
