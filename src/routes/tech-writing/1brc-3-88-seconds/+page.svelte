@@ -230,7 +230,7 @@
 				scrutinizing every line of code, reading through the source of every
 				standard library function I was using, and pondering how I could write
 				my own implementation that was finely tuned for my problem. Analysis of
-				my code through that lense brought me to to two next steps.
+				my code through that lense brought me to two next steps.
 			</p>
 			<p>
 				The next two steps were: 1) manually parse each line and 2) cast the
