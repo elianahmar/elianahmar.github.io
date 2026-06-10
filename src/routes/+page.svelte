@@ -10,7 +10,7 @@
 <section class="min-h-screen flex items-center justify-center px-6 py-24">
 	<div class="max-w-2xl w-full flex flex-col sm:flex-row items-center sm:items-start gap-10">
 		<img
-			src="/elian.jpeg"
+			src="/elian.webp"
 			alt="Elian Ahmar"
 			class="w-48 rounded-lg shrink-0"
 		/>
