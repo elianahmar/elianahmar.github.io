@@ -195,7 +195,7 @@
 				At this point, I had a solution that I knew I could improve upon. The
 				first optimization I saw was the line parsing. I read through the
 				implementation of <code>bytes.Cut</code> and noticed it contained extra computation
-				that was not neccessary for my solution. I also was not a fan of the fact
+				that was not necessary for my solution. I also was not a fan of the fact
 				that I was reading and copying data when updating my map. Instinctually,
 				I knew I could do better.
 			</p>
