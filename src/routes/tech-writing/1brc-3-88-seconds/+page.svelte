@@ -148,9 +148,9 @@
 				Unfortunately, this initial attempt failed for an important reason.
 			</p>
 			<p>
-				Since each line has a varying number of bytes, there could be cases
-				boundaries where the byte chunks could land somewhere in the middle of a
-				line. I created a complicated solution to get around this, but long
+				Since each line has a varying number of bytes, there could be cases in
+				which the boundaries of the byte chunks land somewhere in the middle of
+				a line. I created a complicated solution to get around this, but long
 				story short, my solution became significantly slower and more complex.
 				This was the first real hurdle I had in the challenge.
 			</p>
