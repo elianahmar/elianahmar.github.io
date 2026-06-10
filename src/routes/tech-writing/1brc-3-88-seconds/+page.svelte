@@ -69,7 +69,7 @@
 				problems where I am optimizing latency on a complex pipeline,
 				refactoring a tangled mess of a codebase, or exploring a new technical
 				domain are the days where minutes turn to hours and I enter into a flow
-				state. For that reason, when had I come across the 1BRC challenge I knew
+				state. For that reason, when I had come across the 1BRC challenge I knew
 				that this was a challenge that I could not pass up!
 			</p>
 			<p>
