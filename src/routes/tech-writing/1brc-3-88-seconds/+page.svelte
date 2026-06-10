@@ -178,8 +178,6 @@
 				it uses a cyclic buffer under the hood to store the bytes so that you can
 				optimize and profile memory usage.
 			</Callout>
-
-			<!-- TODO: need to add pprof dump if I reference it-->
 		</section>
 
 		<!-- Unsafe -->
