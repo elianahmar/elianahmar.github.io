@@ -414,6 +414,57 @@
 			</ul>
 		</section>
 
+		<!-- Learnings -->
+		<section class="mb-16">
+			<h2>Learnings</h2>
+			<p>
+				This project taught me way more then I had anticipated. But easily, the
+				engineering wisdom I gathered from this adventure are as follows:
+			</p>
+			<ul>
+				<li>
+					<strong>Microbenchmark</strong>
+					Don't assume things are fast or slow. Be scientific and microbenchmark,
+					this would have helped me realize sooner that my initial implementation
+					wasn't entirely incorrect. I became extremely familiar and comfortable
+					using go's builtin framework for this.
+				</li>
+				<li>
+					<strong>Concurrency != Fast</strong>
+					Or maybe, a better way to say this, is do the simple thing first. A simple
+					sequential implementation first would have started me on the right path.
+					This advice is a corrolary to the idea that "premature optimization is
+					the root of all evil". In my case, it was...
+				</li>
+				<li>
+					<strong
+						>Check the Compiler Optimizations + PPROF (For Golang users)</strong
+					>
+					This is a bit more concrete advice. But first, watch this talk:
+
+					<a
+						href="https://youtu.be/FwzE5Sdhhdw?si=qexWqVrz-2cl39jr"
+						target="_blank"
+						rel="noopener">Profile Guided Optimization</a
+					>
+					The content in this video lives in my head, rent-free. Understanding, what
+					memory lives on the stack versus the heap is super important to understand
+					to ensure you are writing fast code. A lack of understanding would rear
+					itself in this challenge, because ideally you want a solution that has
+					a minimal memory footprint, so you want to keep as little data in memory
+					as possible.
+				</li>
+
+				<li>
+					<strong>BYOS (Bring Your Own Solution)</strong> Another concrete learning
+					for me was that it's not a bad thing to write code tuned for the data if
+					you have guarantees about the shape of the data. A large portion of optimizing
+					the code was simply replacing the standard library implementation with
+					my own.
+				</li>
+			</ul>
+		</section>
+
 		<!-- Conclusion -->
 		<section class="mb-16">
 			<h2>Conclusion</h2>
