@@ -139,7 +139,7 @@
 
 		<!-- Wrong direction -->
 		<section class="mb-16">
-			<h2>Steps in the Wrong Direction; More Concurrency</h2>
+			<h2>Steps in the Wrong Direction: More Concurrency</h2>
 			<p>
 				After seeing my first result, I thought I could improve the runtime by
 				chunk-reading the file and pushing each chunk to be processed. I could
