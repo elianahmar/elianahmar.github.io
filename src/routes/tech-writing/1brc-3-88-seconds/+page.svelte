@@ -122,17 +122,19 @@
 		<section class="mb-16">
 			<h2>Baseline Implementation</h2>
 			<p>
-				To get started, I first needed to do some setup. I added pprof for
-				reading heap and CPU profiles and writing them to files, plus basic
-				command-line arg parsing so I could freely run multiple implementations.
-				And lastly, I added validations that would compare my results to
-				solution to ensure correctness.
+				To get started, I first needed to set up some boilerplate. I added pprof
+				for reading heap and CPU profiles in addition to file writing which
+				would tie the dump to the specific date it was recorded and which
+				implementation it came from. Then, I added command-line arg parsing so I
+				could freely run multiple implementations. And lastly, I added
+				validation logic that would compare my results to solution to ensure
+				correctness.
 			</p>
 			<p>
-				In my initial solution, I immediately made the mistake of trying to
-				parallelize my solution. I implemented a classic producer-consumer
-				pattern where we read the file in one goroutine and push each line to a
-				channel to be processed elsewhere.
+				I then began my baseline implementation. In my initial implementation, I
+				immediately made the mistake of trying to parallelize the code with a
+				producer-consumer pattern where I would scan each line of the file in
+				one goroutine and push the line to a channel to be consumed elsewhere.
 			</p>
 			<p>
 				The runtime was <strong>509 seconds</strong>. Not the start I wanted,
