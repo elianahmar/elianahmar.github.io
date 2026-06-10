@@ -234,8 +234,9 @@
 			</p>
 			<p>
 				The next two steps were: 1) manually parse each line and 2) cast the
-				float values to integers, which have a smaller memory footprint. This
-				brought the runtime from 56 seconds to
+				float values to integers, to enable faster arithmetic operations in
+				addition to avoiding annoying rounding errors. This brought the runtime
+				from 56 seconds to
 				<strong>44 seconds</strong>.
 			</p>
 			<CodeBlock html={data.p9} />
