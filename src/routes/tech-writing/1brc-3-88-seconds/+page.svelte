@@ -467,9 +467,8 @@
 				point? Why do all of this? In my day job, I write services that provide
 				observability, and enable changes to hundreds of thousands of
 				deployments across thousands of Kubernetes clusters. And I've built and
-				optimized this service to such a degree that this entire service runs on
-				a single pod in a single region with an active passive configuration.
-				All of this runs in a single pod in a single cluster.
+				optimized this service to such a degree that it runs entirely on a
+				single pod.
 			</p>
 			<p>
 				Suffice to say, I deal with matters of performance every day, and it's
