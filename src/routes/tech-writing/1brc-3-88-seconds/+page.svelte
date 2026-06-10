@@ -72,11 +72,6 @@
 				state. For that reason, when I had come across the 1BRC challenge I knew
 				that this was a challenge that I could not pass up!
 			</p>
-			<p>
-				Although I'm fashionably late to the party, I am stoked to have finished
-				the project and even more stoked about the time I achieved! I hope you
-				enjoy this article and maybe even learn something in the process.
-			</p>
 		</section>
 
 		<!-- Preamble -->
