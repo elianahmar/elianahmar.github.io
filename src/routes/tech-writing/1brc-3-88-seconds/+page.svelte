@@ -288,7 +288,7 @@
 				Since my initial chunked reading attempt had failed, I'd brushed off the
 				idea. But after revisiting it, I realized it was the only way to get a
 				truly performant solution. If you remember earlier I had mentioned that
-				the key issue with chunked file reading is that the bounary of the
+				the key issue with chunked file reading is that the boundary of the
 				chunks could be landing in the middle of a line. However, after some
 				more research into the docs I had discovered
 				<code>bytes.LastIndexByte()</code> which completely resolved my issue. What
