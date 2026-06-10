@@ -192,38 +192,41 @@
 		<section class="mb-16">
 			<h2>Optimizing the Sequential Implementation with Unsafe</h2>
 			<p>
-				At this point, I had a solution that I knew I could improve upon. I
-				noticed that parsing the lines themselves could be improved. I read
-				through the implementation of <code>bytes.Cut</code> and noticed it does
-				extra computation I didn't need. Because I know the exact shape of my data,
-				I focused on optimizing that piece. I also wasn't a fan of the fact that
-				I was reading and copying data. Instinctually, I knew I could do better.
+				At this point, I had a solution that I knew I could improve upon. The
+				first optimization I saw was the line parsing. I read through the
+				implementation of <code>bytes.Cut</code> and noticed it contained extra computation
+				that was not neccessary for my solution. I also was not a fan of the fact
+				that I was reading and copying data when updating my map. Instinctually,
+				I knew I could do better.
 			</p>
 			<p>
 				This brought me to Go's <code>unsafe</code> package. The TL;DR is that
 				this package provides zero-cost conversions over byte arrays. I like to
 				think about it as a "trust me bro" moment with the compiler. Under the
 				hood you are creating a string header that points to a memory location
-				in a byte slice and defining its length. This is powerful because
+				of a byte slice and defining its length. This is powerful because
 				<code>string(byteSlice)</code>
-				is O(n) because it copies the bytes. With <code>unsafe</code> that cost becomes
-				O(1). This can be dangerous if the underlying byte array changes (which it
-				does), but I knew I had a powerful tool here for reducing latency.
+				is an O(n) operation because it copies the bytes. With
+				<code>unsafe</code> however, that cost becomes O(1). Using
+				<code>unsafe</code> can be dangerous if the underlying byte array changes
+				(which it does), but I knew I had a powerful tool here for reducing latency.
 			</p>
 			<p>
-				I used <code>unsafe</code> to perform the map lookup, and only create a
-				copy when a novel city appears that isn't in the map. That trick brought
-				my solution down to
+				The subtle but powerful trick was that I utilized <code>unsafe</code> to
+				create a temporary string that would be used for the map lookup, and
+				only create a copy when a novel city appears that was not present in the
+				map. That trick brought my solution down to
 				<strong>56 seconds</strong>!
 			</p>
 			<CodeBlock html={data.p5} />
 			<Callout>
 				You might be wondering, why do I need to copy the unsafe string in the
-				case of an unseen city? The problem is that the underlying byte array
-				which is being used for reading the file can change. And if I use the
-				unsafe string it would be mutated since the we are using a single
-				fixed-sized cyclic buffer to process the entire file. Subsequently our
-				map's keys would become corrupted. I found this out the hard way...
+				case of an unseen city? The rationale behind this code is that the
+				underlying byte array is being used for reading the file and it's
+				contents can change. If I use the unsafe string as the key for the map,
+				the underlying memory address for the key would become corrupted since
+				the data in the buffer could change as we continue to read more bytes
+				from the file.
 			</Callout>
 		</section>
 
