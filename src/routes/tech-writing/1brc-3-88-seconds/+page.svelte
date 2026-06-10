@@ -471,18 +471,18 @@
 			<p>
 				If you read this far, thank you. You might be wondering - what's the
 				point? Why do all of this? In my day job, I write services that process
-				and provide observability across thousands of Kubernetes clusters. The
-				systems I work with maintain eventual consistency and store all of that
-				data in memory. We don't rely on databases - which I know sounds insane,
-				but I've made it work (I'll share that in a future article). All of this
-				runs in a single pod in a single cluster.
+				provide observability, and enable changes to hundreds of thousands of
+				deployments across thousands of Kubernetes clusters. And I've built and
+				optimized this service to such a degree that this entire service runs on
+				a single pod in a single region with an active passive configuration.
+				All of this runs in a single pod in a single cluster.
 			</p>
 			<p>
 				Suffice to say, I deal with matters of performance every day, and it's
-				something I genuinely love spending time on. The times I learn the most
-				as a programmer are typically when I'm debugging a really challenging
-				bug or doing performance optimization like this. These problems require
-				me to dig deep.
+				something I genuinely love spending time on. Historically, the times I
+				have learned the most as a programmer are typically when I'm debugging a
+				really challenging bug or doing performance optimization like this.
+				These problems require me to dig deep.
 			</p>
 			<p>
 				Philosophically, I believe building performant systems is how you make
@@ -493,11 +493,11 @@
 			</p>
 			<p>
 				The final result: <strong>3.88 seconds on 1 billion rows of text</strong
-				> on my MacBook Pro. This was easily one of the most fun side projects I've
-				ever done. It forced me to squeeze every last drop from my tools, scrutinize
-				every piece of code from the standard library, and devise crafty tricks to
-				shave off every piece of unnecessary work. The feeling of seeing your slow
-				code become blazing fast never failed to put a grin on my face.
+				> on my MacBook Pro. This was easily one of the most fun projects I've ever
+				done. It forced me to squeeze every last drop from my tools, scrutinize every
+				line of code from the standard library, and devise crafty tricks to shave
+				off every piece of unnecessary work. The feeling of seeing slow code become
+				blazing fast is a victory that never gets old.
 			</p>
 		</section>
 	</div>
