@@ -258,7 +258,8 @@
 				every line of code - be it mine or from the standard library - must
 				serve a purpose. So <code>bytes.Cut()</code> had to go. There was just
 				too much extra computation happening in that method that I didn't need.
-				Also, I knew and validated that every line maintains the following form:
+				Importantly, I knew and validated that every line maintains the
+				following form:
 				<code>&lt;city&gt;;&lt;temperature&gt;\n</code>.
 			</p>
 			<p>
