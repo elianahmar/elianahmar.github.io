@@ -85,29 +85,28 @@
 				<CodeBlock html={data.sampleData} />
 
 				For all of the cities you must compute the min, max, and average
-				temperature for each city. For those who are interested,
+				temperature for each city. For those who are interested, here is
 				<a
 					href="https://github.com/gunnarmorling/1brc"
 					target="_blank"
-					rel="noopener">here</a
+					rel="noopener">the official repository for the challenge</a
 				>
-				is the link to the site explaining the challenge. Two important constraints
-				of this problem are the following:
+				. Two important constraints of this problem are the following:
 			</p>
 			<ul>
-				<li>Only packages from the Go standard library may be used</li>
+				<li>Only packages from the standard library are allowed</li>
 				<li>
-					Absolutely no LLM Code generation. I use AI tools, but I just don't
-					learn if I don't struggle myself!
+					Absolutely no LLM Code generation. I enjoy using AI tools and see
+					their utility, but I just don't learn if I don't struggle myself!
 				</li>
 			</ul>
 			<p>
 				In some parts of the code you'll see methods that might be implemented
-				in other packages. For the original source code please visit the
+				in other packages. Please visit the
 				<a
 					href="https://github.com/elianahmar/1brc-personal"
 					target="_blank"
-					rel="noopener">repository</a
+					rel="noopener">repository of my original source code</a
 				>. For this contest, I implemented and ran my solution on my MacBook Pro
 				which has an M3 chip with 18GB of memory.
 			</p>
