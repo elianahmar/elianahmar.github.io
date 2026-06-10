@@ -121,7 +121,7 @@
 				would tie the dump to the specific date it was recorded and which
 				implementation it came from. Then, I added command-line arg parsing so I
 				could freely run multiple implementations. And lastly, I added
-				validation logic that would compare my results to solution to ensure
+				validation logic that would compare my results to the solution to ensure
 				correctness.
 			</p>
 			<p>
