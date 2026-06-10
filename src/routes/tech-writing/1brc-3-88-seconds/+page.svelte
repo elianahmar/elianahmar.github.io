@@ -169,18 +169,21 @@
 				After some time trying to optimize a fundamentally flawed solution I had
 				to take a step back. I decided to restart and completely rewrite the
 				solution from scratch with one important caveat: the entire solution
-				would run on the main thread. No concurrency, just plain file scanning,
+				would run on the main thread. No concurrency, just plain line scanning,
 				parsing, and map updates.
 			</p>
 			<p>
-				And boom! My fastest solution yet. The Go standard library offers a
-				clean API for reading a file line by line. I used <code
-					>bufio.Scanner
-				</code>
-				to scan every line and update a map. My new runtime came down to
+				And boom! I had my fastest solution yet. My new runtime came down to
 				<strong>117 seconds</strong>. I was back on track!
 			</p>
 			<CodeBlock html={data.p4} />
+			<Callout>
+				The Go standard library offers a clean API for reading a file line by
+				line. I used <code>bufio.Scanner </code>
+				to scan every line and update a map. What's also nice about this API is that
+				it uses a cyclic buffer under the hood to store the bytes so that you can
+				optimize and profile memory usage.
+			</Callout>
 
 			<!-- TODO: need to add pprof dump if I reference it-->
 		</section>
