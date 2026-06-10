@@ -154,11 +154,11 @@
 				Unfortunately, this initial attempt failed for an important reason.
 			</p>
 			<p>
-				If we read a certain number of bytes, the boundaries of these byte
-				chunks could land somewhere in the middle of a line. I created a
-				complicated solution to get around this, but long story short, my
-				solution became significantly slower and more complex. This was the
-				first real hurdle I had in the challenge.
+				Since each line has a varying number of bytes, there could be cases
+				boundaries where the byte chunks could land somewhere in the middle of a
+				line. I created a complicated solution to get around this, but long
+				story short, my solution became significantly slower and more complex.
+				This was the first real hurdle I had in the challenge.
 			</p>
 		</section>
 
