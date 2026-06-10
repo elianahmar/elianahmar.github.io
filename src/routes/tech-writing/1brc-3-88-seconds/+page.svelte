@@ -234,12 +234,11 @@
 		<section class="mb-16">
 			<h2>Manual Parsing of Lines + Int Conversion</h2>
 			<p>
-				At this point the intensity was getting cranked up. I was scrutinizing
-				every line of code, reading through the source of every standard library
-				function I was using, and pondering how to replace each with an
-				implementation that directly suited my problem. My thought process was
-				shifting toward implementing specific logic for parsing and handling the
-				data.
+				At this point, things were getting a bit more involved. I was
+				scrutinizing every line of code, reading through the source of every
+				standard library function I was using, and pondering how I could write
+				my own implementation that was finely tuned for my problem. Analysis of
+				my code through that lense brought me to to two next steps.
 			</p>
 			<p>
 				The next two steps were: 1) manually parse each line and 2) cast the
@@ -262,7 +261,7 @@
 		<section class="mb-16">
 			<h2>Remove bytes.Cut()</h2>
 			<p>
-				Things are getting a bit more intense. If I want to make this code fast,
+				Now, things were getting serious. If I want to make this code fast,
 				every line of code - be it mine or from the standard library - must
 				serve a purpose. So <code>bytes.Cut()</code> had to go. There was just
 				too much extra computation happening in that method that I didn't need.
@@ -270,7 +269,7 @@
 				<code>&lt;city&gt;;&lt;temperature&gt;\n</code>.
 			</p>
 			<p>
-				<!--TODO: is this an accurate statement-->
+				<!--TODO: is this an accurate statement?-->
 				I could parse all of this myself, and doing so ensures I keep memory on the
 				stack. I wrote out the logic for parsing the whole line manually. Going from
 				44 seconds to <strong>38 seconds</strong>.
@@ -282,13 +281,13 @@
 		<section class="mb-16">
 			<h2>Revisiting Chunk File Reading</h2>
 			<p>
-				I was really scratching my head at this point. I knew better solutions
-				existed and I had heard of people who solved the challenge in under 5
-				seconds. After running microbenchmarks I revisited chunked file reading.
-				The pprof dumps were still showing syscalls consuming a majority of the
-				latency, which made sense since I was still scanning each line one at a
-				time. Microbenchmarking revealed it took 3 seconds just to read the
-				entire file.
+				I was seriously scratching my head at this point. I knew better
+				solutions existed and I had heard of people who solved the challenge in
+				under 5 seconds. The pprof dumps were still showing syscalls consuming a
+				majority of the latency, which made sense since I was still scanning
+				each line one at a time. So I started to microbenchmark different ways
+				of reading the file. In that venture, I realized that I could read the
+				contents of the entire file sequentially in about three seconds.
 			</p>
 			<CodeBlock html={data.p4Dump} />
 			<p>
@@ -314,11 +313,12 @@
 			<CodeBlock html={data.p13} />
 			<Callout>
 				Writing to a map is an extremely fast operation. However, having
-				multiple go routines simoultaneously writing to a map requires mutexs
-				and I knew almost immediately that a mutex in this case would slow my
-				program down. Instead of updating a single map across multiple go
-				routines with mutex I just created a new map for every go routine, and
-				push the resulting map to a channel to be processed on the main thread.
+				multiple go routines simoultaneously writing to a map requires
+				synchronization via a shared mutex. I instinctually knew that a mutex in
+				this case would slow my program down. Instead of updating a single map
+				across multiple go routines with mutex, I just created a new map for
+				every go routine, and push the resulting map to a channel to be
+				processed on the main thread. This worked flawlessly.
 			</Callout>
 		</section>
 
@@ -356,18 +356,21 @@
 			<p>
 				The key is to track a single <code>ptr</code> index over the raw buffer
 				and advance it through each phase of the line - first to the
-				<code>;</code>, then through the temperature bytes, then past the
-				newline. Checking <code>ptr &lt; n</code> before every inner access
-				prevents out-of-bounds reads at the very end of the buffer. What's nice
-				about the Go API for reading bytes is that <code>file.ReadAt()</code> will
-				give the number of bytes it reads. This became the bound for my loop.
+				<code>;</code> for the city, then up to the newline for the temperature.
+				Checking <code>ptr &lt; n</code> before every inner access prevents
+				out-of-bounds reads at the very end of the buffer. What's nice about the
+				Go API for reading bytes is that
+				<code>file.ReadAt()</code> will give the number of bytes it reads. This became
+				the bound for my loop.
 			</p>
 			<CodeBlock html={data.ptr} />
 			<h3>Synchronization</h3>
 			<p>
-				In my final solution I utilize three channels: <code>rChan</code> which
-				stores the <code>Range</code> object so I know where to read and how
-				much to read.
+				In my final solution I utilize three buffered channels: <code
+					>rChan</code
+				>
+				which stores the <code>Range</code> object so I know where to read and
+				how much to read.
 				<code>mChan</code> carries a map for a single processed range, and
 				<code>rSig</code>
 				is a boolean signal that coordinates closing <code>mChan</code> only
