@@ -355,8 +355,9 @@
 				Checking <code>ptr &lt; n</code> before every inner access prevents
 				out-of-bounds reads at the very end of the buffer. What's nice about the
 				Go API for reading bytes is that
-				<code>file.ReadAt()</code> will give the number of bytes it reads. This became
-				the bound for my loop.
+				<code>file.ReadAt()</code> will read the file at any given offset and give
+				the number of bytes read from the offset. This helped me establish the bounds
+				for my parsing loop.
 			</p>
 			<CodeBlock html={data.ptr} />
 			<h3>Synchronization</h3>
