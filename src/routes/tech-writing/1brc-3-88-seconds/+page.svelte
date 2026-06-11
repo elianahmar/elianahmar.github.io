@@ -81,9 +81,11 @@
 				For those who don't know about this challenge, the premise is fairly
 				simple. You are given 1 billion rows of weather data. The data takes the
 				following form:
+			</p>
 
-				<CodeBlock html={data.sampleData} />
+			<CodeBlock html={data.sampleData} />
 
+			<p>
 				For all of the cities you must compute the min, max, and average
 				temperature for each city. For those who are interested, here is
 				<a
