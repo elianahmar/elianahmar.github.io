@@ -306,7 +306,7 @@
 			<CodeBlock html={data.p13} />
 			<Callout>
 				Writing to a map is an extremely fast operation. However, having
-				multiple go routines simoultaneously writing to a map requires
+				multiple go routines simultaneously writing to a map requires
 				synchronization via a shared mutex. I instinctually knew that a mutex in
 				this case would slow my program down. Instead of updating a single map
 				across multiple go routines with mutex, I just created a new map for
