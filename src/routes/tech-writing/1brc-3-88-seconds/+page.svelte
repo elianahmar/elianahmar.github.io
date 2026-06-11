@@ -411,8 +411,8 @@
 		<section class="mb-16">
 			<h2>Learnings</h2>
 			<p>
-				This project taught me way more than I had anticipated. But easily, the
-				engineering wisdom I gathered from this adventure are as follows:
+				This project taught me way more than I had anticipated. The biggest
+				lessons from this project:
 			</p>
 			<ul>
 				<li>
