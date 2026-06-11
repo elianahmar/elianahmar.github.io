@@ -473,7 +473,7 @@
 			<p>
 				Suffice it to say, I deal with matters of performance every day, and
 				it's something I genuinely love spending time on. Historically, the
-				times I have learned the most as a programmer are typically when I'm
+				times I have learned the most as a engineer are typically when I'm
 				debugging a really challenging bug or doing performance optimization
 				like this. These problems require me to dig deep.
 			</p>
