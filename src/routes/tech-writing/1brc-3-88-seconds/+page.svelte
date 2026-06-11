@@ -282,10 +282,16 @@
 				under 5 seconds. The pprof dumps were still showing syscalls consuming a
 				majority of the latency, which made sense since I was still scanning
 				each line one at a time. So I started to microbenchmark different ways
-				of reading the file. In doing so, I realized that I could read the
-				contents of the entire file sequentially in about three seconds.
+				of reading the file. The cpu profile made the bottleneck obvious:
 			</p>
 			<CodeBlock html={data.p4Dump} />
+			<p>
+				<code>fileScanner.Scan()</code> was consuming 98.66% of total runtime. Every
+				line was a separate syscall, and that cost was dominating the runtime. A
+				microbenchmark confirmed that chunked reading over the entire file took about
+				three seconds. Which was nearly 10x faster than line-by-line scanning. Equipped
+				with this evidence, my path forward was clear.
+			</p>
 			<p>
 				Since my initial chunked reading attempt had failed, I'd brushed off the
 				idea. But after revisiting it, I realized it was the only way to get a
