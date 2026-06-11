@@ -256,6 +256,15 @@
 		<section class="mb-16">
 			<h2>Remove bytes.Cut()</h2>
 			<p>
+				Now, in the previous section I mentioned that I was manually parsing the
+				line. However, that was half true. The float-to-int conversion handled
+				the temperature side, but I was still relying on <code>bytes.Cut()</code
+				>
+				to locate the
+				<code>;</code> delimiter and split the city from the temperature. That was
+				the next thing to go.
+			</p>
+			<p>
 				Now, things were getting serious. If I want to make this code fast,
 				every line of code - be it mine or from the standard library - must
 				serve a purpose. So <code>bytes.Cut()</code> had to go. There was just
