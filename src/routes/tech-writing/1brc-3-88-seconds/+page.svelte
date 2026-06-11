@@ -300,9 +300,8 @@
 				the data for each chunk of the data.
 			</p>
 			<p>
-				Those two modifications brought me from 38 seconds all the way to <strong
-					>12 seconds</strong
-				>!
+				Low and behold I had struck gold because those two modifications brought
+				me from 38 seconds all the way to <strong>12 seconds</strong> - a 3x speedup!
 			</p>
 			<CodeBlock html={data.p13} />
 			<Callout>
