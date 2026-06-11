@@ -341,11 +341,11 @@ export const reconcileCode = `func reconcileLines(readChunks []ReadChunk) {
 
 func reconcileChunks(curr *ReadChunk, next *ReadChunk) {
 	bufLen := len(curr.Buffer)
-	if curr.Buffer[bufLen-1] == '\n' {
+	if curr.Buffer[bufLen-1] == newline {
 		return // chunk ends cleanly on a newline boundary
 	}
 	// Find the first newline in the next chunk and steal everything up to it
-	breakPoint := utils.First(next.Buffer, func(b byte) bool { return b == '\n' })
+	breakPoint := utils.First(next.Buffer, func(b byte) bool { return b == newline })
 	curr.Buffer = append(curr.Buffer, next.Buffer[:breakPoint+1]...)
 	next.Buffer = next.Buffer[breakPoint+1:]
 }`
