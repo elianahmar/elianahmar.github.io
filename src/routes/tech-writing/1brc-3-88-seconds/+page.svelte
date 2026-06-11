@@ -418,34 +418,35 @@
 				<li>
 					<strong>Microbenchmark</strong>
 					Don't assume things are fast or slow. Be scientific and microbenchmark,
-					this would have helped me realize sooner that my initial implementation
-					wasn't entirely incorrect. I became extremely familiar and comfortable
-					using go's builtin framework for this.
+					this would have helped me bypass some misteps I made in my earlier implementations.
+					As I progressed through the challenge I became more familiar and comfortable
+					using go's built-in framework for benchmarking.
 				</li>
 				<li>
 					<strong>Concurrency != Fast</strong>
-					Or maybe, a better way to say this, is do the simple thing first. A simple
-					sequential implementation first would have started me on the right path.
-					This advice is a corollary to the idea that "premature optimization is
-					the root of all evil". In my case, it was...
+					Do the simple thing first. A simple sequential implementation first would
+					have started me on the right path. This advice is a corollary to the idea
+					that "premature optimization is the root of all evil". In my case, it was.
+					My approach of adding complex concurrency in my initial implementations
+					set me on a trajectory that required a great deal of thought to correct
+					from later on.
 				</li>
 				<li>
 					<strong
 						>Check the Compiler Optimizations + PPROF (For Golang users)</strong
 					>
-					This is a bit more concrete advice. But first, watch this talk:
+					I'd highly recommend this talk:
 
 					<a
 						href="https://youtu.be/FwzE5Sdhhdw?si=qexWqVrz-2cl39jr"
 						target="_blank"
 						rel="noopener">Profile Guided Optimization</a
 					>
-					The content in this video lives in my head, rent-free. Understanding, what
+					The content in this video lives in my head, rent-free. Understanding what
 					memory lives on the stack versus the heap is super important to understand
-					to ensure you are writing fast code. A lack of understanding would rear
-					itself in this challenge, because ideally you want a solution that has
-					a minimal memory footprint, so you want to keep as little data in memory
-					as possible.
+					if you aim to write fast code. A lack of understanding would rear itself
+					in this challenge, because ideally you want a solution that has a minimal
+					memory footprint, so you want to keep as little data in memory as possible.
 				</li>
 
 				<li>
