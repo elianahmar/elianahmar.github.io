@@ -333,6 +333,23 @@ Jakarta;33.4
 Tamale;28.3
 `
 
+export const reconcileCode = `func reconcileLines(readChunks []ReadChunk) {
+	for i := 0; i < len(readChunks)-1; i++ {
+		reconcileChunks(&readChunks[i], &readChunks[i+1])
+	}
+}
+
+func reconcileChunks(curr *ReadChunk, next *ReadChunk) {
+	bufLen := len(curr.Buffer)
+	if curr.Buffer[bufLen-1] == '\n' {
+		return // chunk ends cleanly on a newline boundary
+	}
+	// Find the first newline in the next chunk and steal everything up to it
+	breakPoint := utils.First(next.Buffer, func(b byte) bool { return b == '\n' })
+	curr.Buffer = append(curr.Buffer, next.Buffer[:breakPoint+1]...)
+	next.Buffer = next.Buffer[breakPoint+1:]
+}`
+
 export const p4Pprof = `(pprof) list Compute
 ROUTINE ======================== github.com/throwea/1brc-go/pkg/preprocessor.(*P4).Compute in /Users/elianahmar/Development/1brc-personal/pkg/preprocessor/p4.go
       60ms    106.22s (flat, cum) 98.66% of Total

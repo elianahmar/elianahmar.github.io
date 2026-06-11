@@ -152,8 +152,14 @@
 			<p>
 				Since each line has a varying number of bytes, there could be cases in
 				which the boundaries of the byte chunks land somewhere in the middle of
-				a line. I created a complicated solution to get around this, but long
-				story short, my solution became significantly slower and more complex.
+				a line. My fix was to scan each chunk boundary after reading: if a chunk
+				didn't end on a newline, I'd find the first newline in the next chunk
+				and steal everything up to it. This sequential reconciliation pass made
+				the solution significantly slower and more complex than the naive
+				line-by-line approach.
+			</p>
+			<CodeBlock html={data.reconcile} />
+			<p>
 				This was the first real hurdle I had in the challenge.
 			</p>
 		</section>
