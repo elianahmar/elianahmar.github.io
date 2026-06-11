@@ -120,8 +120,8 @@
 				profiling for capturing heap and CPU dumps in addition to file writing
 				which would tie the dump to the specific date and the implementation it
 				came from. Then, I added command-line arg parsing so I could freely run
-				multiple implementations. And lastly, I added validation logic that
-				would compare my results to the solution to ensure correctness.
+				multiple implementations. And lastly, I added validation logic for
+				comparing my measurements against the solution.
 			</p>
 			<p>
 				With the boilerplate out of the way, I then began my baseline
