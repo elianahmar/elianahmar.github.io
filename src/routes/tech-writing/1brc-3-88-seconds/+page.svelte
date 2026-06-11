@@ -69,13 +69,8 @@
 				problems where I am optimizing latency on a complex pipeline,
 				refactoring a tangled mess of a codebase, or exploring a new technical
 				domain are the days where minutes turn to hours and I enter into a flow
-				state. For that reason, when had I come across the 1BRC challenge I knew
+				state. For that reason, when I had come across the 1BRC challenge I knew
 				that this was a challenge that I could not pass up!
-			</p>
-			<p>
-				Although I'm fashionably late to the party, I am stoked to have finished
-				the project and even more stoked about the time I achieved! I hope you
-				enjoy this article and maybe even learn something in the process.
 			</p>
 		</section>
 
@@ -86,33 +81,34 @@
 				For those who don't know about this challenge, the premise is fairly
 				simple. You are given 1 billion rows of weather data. The data takes the
 				following form:
+			</p>
 
-				<CodeBlock html={data.sampleData} />
+			<CodeBlock html={data.sampleData} />
 
+			<p>
 				For all of the cities you must compute the min, max, and average
-				temperature for each city. For those who are interested,
+				temperature for each city. For those who are interested, here is
 				<a
 					href="https://github.com/gunnarmorling/1brc"
 					target="_blank"
-					rel="noopener">here</a
+					rel="noopener">the official repository for the challenge</a
 				>
-				is the link to the site explaining the challenge. Two important constraints
-				of this problem are the following:
+				. Two important constraints of this problem are the following:
 			</p>
 			<ul>
-				<li>Only packages from the Go standard library may be used</li>
+				<li>Only packages from the standard library are allowed</li>
 				<li>
-					Absolutely no LLM Code generation. I use AI tools, but I just don't
-					learn if I don't struggle myself!
+					Absolutely no LLM Code generation. I enjoy using AI tools and see
+					their utility, but I just don't learn if I don't struggle myself!
 				</li>
 			</ul>
 			<p>
 				In some parts of the code you'll see methods that might be implemented
-				in other packages. For the original source code please visit the
+				in other packages. Please visit the
 				<a
 					href="https://github.com/elianahmar/1brc-personal"
 					target="_blank"
-					rel="noopener">repository</a
+					rel="noopener">repository of my original source code</a
 				>. For this contest, I implemented and ran my solution on my MacBook Pro
 				which has an M3 chip with 18GB of memory.
 			</p>
@@ -123,18 +119,18 @@
 			<h2>Baseline Implementation</h2>
 			<p>
 				To get started, I first needed to set up some boilerplate. I added pprof
-				for reading heap and CPU profiles in addition to file writing which
-				would tie the dump to the specific date it was recorded and which
-				implementation it came from. Then, I added command-line arg parsing so I
-				could freely run multiple implementations. And lastly, I added
-				validation logic that would compare my results to solution to ensure
-				correctness.
+				profiling for capturing heap and CPU dumps in addition to file writing
+				which would tie the dump to the specific date and the implementation it
+				came from. Then, I added command-line arg parsing so I could freely run
+				multiple implementations. And lastly, I added validation logic for
+				comparing my measurements against the solution.
 			</p>
 			<p>
-				I then began my baseline implementation. In my initial implementation, I
-				immediately made the mistake of trying to parallelize the code with a
-				producer-consumer pattern where I would scan each line of the file in
-				one goroutine and push the line to a channel to be consumed elsewhere.
+				With the boilerplate out of the way, I then began my baseline
+				implementation. In my initial implementation, I immediately made the
+				mistake of trying to parallelize the code with a producer-consumer
+				pattern where I would scan each line of the file in one goroutine and
+				push the line to a channel to be consumed elsewhere.
 			</p>
 			<p>
 				The runtime was <strong>509 seconds</strong>. Not the start I wanted,
@@ -145,7 +141,7 @@
 
 		<!-- Wrong direction -->
 		<section class="mb-16">
-			<h2>Steps in the Wrong Direction; More Concurrency</h2>
+			<h2>Steps in the Wrong Direction: More Concurrency</h2>
 			<p>
 				After seeing my first result, I thought I could improve the runtime by
 				chunk-reading the file and pushing each chunk to be processed. I could
@@ -154,10 +150,16 @@
 				Unfortunately, this initial attempt failed for an important reason.
 			</p>
 			<p>
-				Since each line has a varying number of bytes, there could be cases
-				boundaries where the byte chunks could land somewhere in the middle of a
-				line. I created a complicated solution to get around this, but long
-				story short, my solution became significantly slower and more complex.
+				Since each line has a varying number of bytes, there could be cases in
+				which the boundaries of the byte chunks land somewhere in the middle of
+				a line. My fix was to scan each chunk boundary after reading: if a chunk
+				didn't end on a newline, I'd find the first newline in the next chunk
+				and steal everything up to it. This sequential reconciliation pass made
+				the solution significantly slower and more complex than the naive
+				line-by-line approach.
+			</p>
+			<CodeBlock html={data.reconcile} />
+			<p>
 				This was the first real hurdle I had in the challenge.
 			</p>
 		</section>
@@ -181,30 +183,28 @@
 				The Go standard library offers a clean API for reading a file line by
 				line. I used <code>bufio.Scanner </code>
 				to scan every line and update a map. What's also nice about this API is that
-				it uses a cyclic buffer under the hood to store the bytes so that you can
-				optimize and profile memory usage.
+				it uses a fixed size buffer under the hood which allowed me to tune and benchmark
+				different buffer sizes.
 			</Callout>
-
-			<!-- TODO: need to add pprof dump if I reference it-->
 		</section>
 
 		<!-- Unsafe -->
 		<section class="mb-16">
-			<h2>Optimizing the Sequential Implementation with Unsafe</h2>
+			<h2>Optimizing the Sequential Implementation with Unsafe.String()</h2>
 			<p>
 				At this point, I had a solution that I knew I could improve upon. The
 				first optimization I saw was the line parsing. I read through the
 				implementation of <code>bytes.Cut</code> and noticed it contained extra computation
-				that was not neccessary for my solution. I also was not a fan of the fact
+				that was not necessary for my solution. I also was not a fan of the fact
 				that I was reading and copying data when updating my map. Instinctually,
 				I knew I could do better.
 			</p>
 			<p>
-				This brought me to Go's <code>unsafe</code> package. The TL;DR is that
-				this package provides zero-cost conversions over byte arrays. I like to
-				think about it as a "trust me bro" moment with the compiler. Under the
-				hood you are creating a string header that points to a memory location
-				of a byte slice and defining its length. This is powerful because
+				This brought me to Go's <code>unsafe.String</code>. The TL;DR is that
+				this method provides zero-cost string conversions over byte arrays.
+				Under the hood you are creating a string header that points to a memory
+				location of a byte slice and defining its length. This is powerful
+				because
 				<code>string(byteSlice)</code>
 				is an O(n) operation because it copies the bytes. With
 				<code>unsafe</code> however, that cost becomes O(1). Using
@@ -238,12 +238,13 @@
 				scrutinizing every line of code, reading through the source of every
 				standard library function I was using, and pondering how I could write
 				my own implementation that was finely tuned for my problem. Analysis of
-				my code through that lense brought me to to two next steps.
+				my code through that lense brought me to two next steps.
 			</p>
 			<p>
 				The next two steps were: 1) manually parse each line and 2) cast the
-				float values to integers, which have a smaller memory footprint. This
-				brought the runtime from 56 seconds to
+				float values to integers, to enable faster arithmetic operations in
+				addition to avoiding annoying rounding errors. This brought the runtime
+				from 56 seconds to
 				<strong>44 seconds</strong>.
 			</p>
 			<CodeBlock html={data.p9} />
@@ -261,18 +262,28 @@
 		<section class="mb-16">
 			<h2>Remove bytes.Cut()</h2>
 			<p>
+				Now, in the previous section I mentioned that I was manually parsing the
+				line. However, that was half true. The float-to-int conversion handled
+				the temperature side, but I was still relying on <code>bytes.Cut()</code
+				>
+				to locate the
+				<code>;</code> delimiter and split the city from the temperature. That was
+				the next thing to go.
+			</p>
+			<p>
 				Now, things were getting serious. If I want to make this code fast,
 				every line of code - be it mine or from the standard library - must
 				serve a purpose. So <code>bytes.Cut()</code> had to go. There was just
 				too much extra computation happening in that method that I didn't need.
-				Also, I knew and validated that every line maintains the following form:
+				Importantly, I knew and validated that every line maintains the
+				following form:
 				<code>&lt;city&gt;;&lt;temperature&gt;\n</code>.
 			</p>
 			<p>
-				<!--TODO: is this an accurate statement?-->
-				I could parse all of this myself, and doing so ensures I keep memory on the
-				stack. I wrote out the logic for parsing the whole line manually. Going from
-				44 seconds to <strong>38 seconds</strong>.
+				I could parse all of this myself, and doing so ensures I avoid the extra
+				allocations and boundary checking that the method does under the hood. I
+				wrote out the logic for parsing the whole line manually, bringing the
+				runtime from 44 seconds to <strong>38 seconds</strong>.
 			</p>
 			<CodeBlock html={data.p11} />
 		</section>
@@ -286,15 +297,21 @@
 				under 5 seconds. The pprof dumps were still showing syscalls consuming a
 				majority of the latency, which made sense since I was still scanning
 				each line one at a time. So I started to microbenchmark different ways
-				of reading the file. In that venture, I realized that I could read the
-				contents of the entire file sequentially in about three seconds.
+				of reading the file. The cpu profile made the bottleneck obvious:
 			</p>
 			<CodeBlock html={data.p4Dump} />
+			<p>
+				<code>fileScanner.Scan()</code> was consuming 98.66% of total runtime. Every
+				line was a separate syscall, and that cost was dominating the runtime. A
+				microbenchmark confirmed that chunked reading over the entire file took about
+				three seconds. Which was nearly 10x faster than line-by-line scanning. Equipped
+				with this evidence, my path forward was clear.
+			</p>
 			<p>
 				Since my initial chunked reading attempt had failed, I'd brushed off the
 				idea. But after revisiting it, I realized it was the only way to get a
 				truly performant solution. If you remember earlier I had mentioned that
-				the key issue with chunked file reading is that the bounary of the
+				the key issue with chunked file reading is that the boundary of the
 				chunks could be landing in the middle of a line. However, after some
 				more research into the docs I had discovered
 				<code>bytes.LastIndexByte()</code> which completely resolved my issue. What
@@ -306,14 +323,13 @@
 				the data for each chunk of the data.
 			</p>
 			<p>
-				Those two modifications brought me from 38 seconds all the way to <strong
-					>12 seconds</strong
-				>!
+				Low and behold I had struck gold because those two modifications brought
+				me from 38 seconds all the way to <strong>12 seconds</strong> - a 3x speedup!
 			</p>
 			<CodeBlock html={data.p13} />
 			<Callout>
 				Writing to a map is an extremely fast operation. However, having
-				multiple go routines simoultaneously writing to a map requires
+				multiple go routines simultaneously writing to a map requires
 				synchronization via a shared mutex. I instinctually knew that a mutex in
 				this case would slow my program down. Instead of updating a single map
 				across multiple go routines with mutex, I just created a new map for
@@ -347,7 +363,7 @@
 				the variable by 10 before adding each new digit. This builds up the
 				integer left-to-right as you scan each byte, with zero intermediate
 				allocations. The sign is checked separately and applied after the loop
-				completes after the loop.
+				completes.
 			</p>
 			<CodeBlock html={data.singlePassDigit} />
 			<CodeBlock html={data.digit} />
@@ -360,8 +376,9 @@
 				Checking <code>ptr &lt; n</code> before every inner access prevents
 				out-of-bounds reads at the very end of the buffer. What's nice about the
 				Go API for reading bytes is that
-				<code>file.ReadAt()</code> will give the number of bytes it reads. This became
-				the bound for my loop.
+				<code>file.ReadAt()</code> will read the file at any given offset and give
+				the number of bytes read from the offset. This helped me establish the bounds
+				for my parsing loop.
 			</p>
 			<CodeBlock html={data.ptr} />
 			<h3>Synchronization</h3>
@@ -418,41 +435,42 @@
 		<section class="mb-16">
 			<h2>Learnings</h2>
 			<p>
-				This project taught me way more then I had anticipated. But easily, the
-				engineering wisdom I gathered from this adventure are as follows:
+				This project taught me way more than I had anticipated. The biggest
+				lessons from this project:
 			</p>
 			<ul>
 				<li>
 					<strong>Microbenchmark</strong>
 					Don't assume things are fast or slow. Be scientific and microbenchmark,
-					this would have helped me realize sooner that my initial implementation
-					wasn't entirely incorrect. I became extremely familiar and comfortable
-					using go's builtin framework for this.
+					this would have helped me bypass some misteps I made in my earlier implementations.
+					As I progressed through the challenge I became more familiar and comfortable
+					using go's built-in framework for benchmarking.
 				</li>
 				<li>
 					<strong>Concurrency != Fast</strong>
-					Or maybe, a better way to say this, is do the simple thing first. A simple
-					sequential implementation first would have started me on the right path.
-					This advice is a corrolary to the idea that "premature optimization is
-					the root of all evil". In my case, it was...
+					Do the simple thing first. A simple sequential implementation first would
+					have started me on the right path. This advice is a corollary to the idea
+					that "premature optimization is the root of all evil". In my case, it was.
+					My approach of adding complex concurrency in my initial implementations
+					set me on a trajectory that required a great deal of thought to correct
+					from later on.
 				</li>
 				<li>
 					<strong
 						>Check the Compiler Optimizations + PPROF (For Golang users)</strong
 					>
-					This is a bit more concrete advice. But first, watch this talk:
+					I'd highly recommend this talk:
 
 					<a
 						href="https://youtu.be/FwzE5Sdhhdw?si=qexWqVrz-2cl39jr"
 						target="_blank"
 						rel="noopener">Profile Guided Optimization</a
 					>
-					The content in this video lives in my head, rent-free. Understanding, what
+					The content in this video lives in my head, rent-free. Understanding what
 					memory lives on the stack versus the heap is super important to understand
-					to ensure you are writing fast code. A lack of understanding would rear
-					itself in this challenge, because ideally you want a solution that has
-					a minimal memory footprint, so you want to keep as little data in memory
-					as possible.
+					if you aim to write fast code. A lack of understanding would rear itself
+					in this challenge, because ideally you want a solution that has a minimal
+					memory footprint, so you want to keep as little data in memory as possible.
 				</li>
 
 				<li>
@@ -470,19 +488,18 @@
 			<h2>Conclusion</h2>
 			<p>
 				If you read this far, thank you. You might be wondering - what's the
-				point? Why do all of this? In my day job, I write services that process
-				provide observability, and enable changes to hundreds of thousands of
+				point? Why do all of this? In my day job, I write services that provide
+				observability, and enable changes to hundreds of thousands of
 				deployments across thousands of Kubernetes clusters. And I've built and
-				optimized this service to such a degree that this entire service runs on
-				a single pod in a single region with an active passive configuration.
-				All of this runs in a single pod in a single cluster.
+				optimized this service to such a degree that it runs entirely on a
+				single pod.
 			</p>
 			<p>
-				Suffice to say, I deal with matters of performance every day, and it's
-				something I genuinely love spending time on. Historically, the times I
-				have learned the most as a programmer are typically when I'm debugging a
-				really challenging bug or doing performance optimization like this.
-				These problems require me to dig deep.
+				Suffice it to say, I deal with matters of performance every day, and
+				it's something I genuinely love spending time on. Historically, the
+				times I have learned the most as a engineer are typically when I'm
+				debugging a really challenging bug or doing performance optimization
+				like this. These problems require me to dig deep.
 			</p>
 			<p>
 				Philosophically, I believe building performant systems is how you make
