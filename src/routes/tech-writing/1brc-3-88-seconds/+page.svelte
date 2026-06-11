@@ -118,7 +118,7 @@
 			<h2>Baseline Implementation</h2>
 			<p>
 				To get started, I first needed to set up some boilerplate. I added pprof
-				profiling for capturing heap and CPU dumps in addition to file writing
+				profiling for capturing heap and cpu dumps in addition to file writing
 				which would tie the dump to the specific date and the implementation it
 				came from. Then, I added command-line arg parsing so I could freely run
 				multiple implementations. And lastly, I added validation logic for
@@ -153,9 +153,9 @@
 				which the boundaries of the byte chunks land somewhere in the middle of
 				a line. My fix was to scan each chunk boundary after reading: if a chunk
 				didn't end on a newline, I'd find the first newline in the next chunk
-				and add it to the chunk. Reconciling each chunk made the solution
-				significantly slower and more complex than the naive line-by-line
-				approach.
+				and append it to the current chunk. Reconciling each chunk made the
+				solution significantly slower and more complex than the naive
+				line-by-line approach.
 			</p>
 			<CodeBlock html={data.reconcile} />
 			<p>This was the first real hurdle I had in the challenge.</p>
@@ -178,7 +178,7 @@
 			<CodeBlock html={data.p4} />
 			<Callout>
 				The Go standard library offers a clean API for reading a file line by
-				line. I used <code>bufio.Scanner </code>
+				line. I used <code>bufio.Scanner</code>
 				to scan every line and update a map. What's also nice about this API is that
 				it uses a fixed size buffer under the hood which allowed me to tune and benchmark
 				different buffer sizes.
@@ -261,7 +261,8 @@
 			<p>
 				Now, in the previous section I mentioned that I was manually parsing the
 				line. However, that was half true. The float-to-int conversion handled
-				the temperature side, but I was still relying on <code>bytes.Cut()</code
+				the temperature parsing, but I was still relying on <code
+					>bytes.Cut()</code
 				>
 				to locate the
 				<code>;</code> delimiter and split the city from the temperature. That was
@@ -290,11 +291,12 @@
 			<h2>Revisiting Chunk File Reading</h2>
 			<p>
 				I was seriously scratching my head at this point. I knew better
-				solutions existed and I had heard of people who solved the challenge in
-				under 5 seconds. The pprof dumps were still showing syscalls consuming a
-				majority of the latency, which made sense since I was still scanning
-				each line one at a time. So I started to microbenchmark different ways
-				of reading the file. The cpu profile made the bottleneck obvious:
+				solutions existed and I had heard of engineers who solved the challenge
+				in under 5 seconds. The pprof dumps were still showing syscalls
+				consuming a majority of the latency, which made sense since I was still
+				scanning each line one at a time. So I started to microbenchmark
+				different ways of reading the file. The cpu profile made the bottleneck
+				obvious:
 			</p>
 			<CodeBlock html={data.p4Dump} />
 			<p>
@@ -380,7 +382,7 @@
 			<CodeBlock html={data.ptr} />
 			<h3>Synchronization</h3>
 			<p>
-				In my final solution I utilize three buffered channels: <code
+				In my final solution I utilized three buffered channels: <code
 					>rChan</code
 				>
 				which stores the <code>Range</code> object so I know where to read and
