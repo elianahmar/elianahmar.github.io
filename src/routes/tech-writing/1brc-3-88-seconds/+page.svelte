@@ -265,8 +265,8 @@
 			<p>
 				<!--TODO: is this an accurate statement?-->
 				I could parse all of this myself, and doing so ensures I keep memory on the
-				stack. I wrote out the logic for parsing the whole line manually. Going from
-				44 seconds to <strong>38 seconds</strong>.
+				stack. I wrote out the logic for parsing the whole line manually, bringing
+				the runtime from 44 seconds to <strong>38 seconds</strong>.
 			</p>
 			<CodeBlock html={data.p11} />
 		</section>
@@ -280,7 +280,7 @@
 				under 5 seconds. The pprof dumps were still showing syscalls consuming a
 				majority of the latency, which made sense since I was still scanning
 				each line one at a time. So I started to microbenchmark different ways
-				of reading the file. In that venture, I realized that I could read the
+				of reading the file. In doing so, I realized that I could read the
 				contents of the entire file sequentially in about three seconds.
 			</p>
 			<CodeBlock html={data.p4Dump} />
@@ -340,7 +340,7 @@
 				the variable by 10 before adding each new digit. This builds up the
 				integer left-to-right as you scan each byte, with zero intermediate
 				allocations. The sign is checked separately and applied after the loop
-				completes after the loop.
+				completes.
 			</p>
 			<CodeBlock html={data.singlePassDigit} />
 			<CodeBlock html={data.digit} />
