@@ -182,7 +182,7 @@
 
 		<!-- Unsafe -->
 		<section class="mb-16">
-			<h2>Optimizing the Sequential Implementation with Unsafe</h2>
+			<h2>Optimizing the Sequential Implementation with Unsafe.String()</h2>
 			<p>
 				At this point, I had a solution that I knew I could improve upon. The
 				first optimization I saw was the line parsing. I read through the
@@ -192,11 +192,11 @@
 				I knew I could do better.
 			</p>
 			<p>
-				This brought me to Go's <code>unsafe</code> package. The TL;DR is that
-				this package provides zero-cost conversions over byte arrays. I like to
-				think about it as a "trust me bro" moment with the compiler. Under the
-				hood you are creating a string header that points to a memory location
-				of a byte slice and defining its length. This is powerful because
+				This brought me to Go's <code>unsafe.String</code>. The TL;DR is that
+				this method provides zero-cost string conversions over byte arrays.
+				Under the hood you are creating a string header that points to a memory
+				location of a byte slice and defining its length. This is powerful
+				because
 				<code>string(byteSlice)</code>
 				is an O(n) operation because it copies the bytes. With
 				<code>unsafe</code> however, that cost becomes O(1). Using
@@ -412,7 +412,7 @@
 		<section class="mb-16">
 			<h2>Learnings</h2>
 			<p>
-				This project taught me way more then I had anticipated. But easily, the
+				This project taught me way more than I had anticipated. But easily, the
 				engineering wisdom I gathered from this adventure are as follows:
 			</p>
 			<ul>
@@ -427,7 +427,7 @@
 					<strong>Concurrency != Fast</strong>
 					Or maybe, a better way to say this, is do the simple thing first. A simple
 					sequential implementation first would have started me on the right path.
-					This advice is a corrolary to the idea that "premature optimization is
+					This advice is a corollary to the idea that "premature optimization is
 					the root of all evil". In my case, it was...
 				</li>
 				<li>
