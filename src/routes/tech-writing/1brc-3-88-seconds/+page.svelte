@@ -177,8 +177,8 @@
 				The Go standard library offers a clean API for reading a file line by
 				line. I used <code>bufio.Scanner </code>
 				to scan every line and update a map. What's also nice about this API is that
-				it uses a cyclic buffer under the hood to store the bytes so that you can
-				optimize and profile memory usage.
+				it uses a fixed size buffer under the hood which allowed me to tune and benchmark
+				different buffer sizes.
 			</Callout>
 		</section>
 
