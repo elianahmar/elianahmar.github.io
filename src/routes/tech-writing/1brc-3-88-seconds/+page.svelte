@@ -92,8 +92,7 @@
 					href="https://github.com/gunnarmorling/1brc"
 					target="_blank"
 					rel="noopener">the official repository for the challenge</a
-				>
-				. Two important constraints of this problem are the following:
+				>. Two important constraints of this problem are the following:
 			</p>
 			<ul>
 				<li>Only packages from the standard library are allowed</li>
@@ -159,9 +158,7 @@
 				line-by-line approach.
 			</p>
 			<CodeBlock html={data.reconcile} />
-			<p>
-				This was the first real hurdle I had in the challenge.
-			</p>
+			<p>This was the first real hurdle I had in the challenge.</p>
 		</section>
 
 		<!-- Sequential -->
