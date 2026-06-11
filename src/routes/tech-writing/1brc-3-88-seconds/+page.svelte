@@ -469,7 +469,7 @@
 					memory lives on the stack versus the heap is super important to understand
 					if you aim to write fast code. A lack of understanding would rear itself
 					in this challenge, because ideally you want a solution that has a minimal
-					memory footprint, so you want to keep as little data in memory as possible.
+					memory footprint, so you want to keep as much memory on the stack as possible.
 				</li>
 
 				<li>
@@ -488,17 +488,16 @@
 			<p>
 				If you read this far, thank you. You might be wondering - what's the
 				point? Why do all of this? In my day job, I write services that provide
-				observability, and enable changes to hundreds of thousands of
-				deployments across thousands of Kubernetes clusters. And I've built and
-				optimized this service to such a degree that it runs entirely on a
-				single pod.
+				observability and enable changes to hundreds of thousands of deployments
+				across thousands of Kubernetes clusters. And I've built and optimized
+				this service to such a degree that it runs entirely on a single pod.
 			</p>
 			<p>
 				Suffice it to say, I deal with matters of performance every day, and
 				it's something I genuinely love spending time on. Historically, the
-				times I have learned the most as a engineer are typically when I'm
-				debugging a really challenging bug or doing performance optimization
-				like this. These problems require me to dig deep.
+				times I have learned the most as a engineer are when I'm fixing a really
+				difficult bug or doing performance optimization like this. These
+				problems require me to dig deep.
 			</p>
 			<p>
 				Philosophically, I believe building performant systems is how you make
@@ -512,8 +511,8 @@
 				> on my MacBook Pro. This was easily one of the most fun projects I've ever
 				done. It forced me to squeeze every last drop from my tools, scrutinize every
 				line of code from the standard library, and devise crafty tricks to shave
-				off every piece of unnecessary work. The feeling of seeing slow code become
-				blazing fast is a victory that never gets old.
+				off latency. The feeling of seeing slow code become blazing fast is a victory
+				that never gets old.
 			</p>
 		</section>
 	</div>
