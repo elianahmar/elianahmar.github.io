@@ -342,7 +342,7 @@ export const reconcileCode = `func reconcileLines(readChunks []ReadChunk) {
 func reconcileChunks(curr *ReadChunk, next *ReadChunk) {
 	bufLen := len(curr.Buffer)
 	if curr.Buffer[bufLen-1] == newline {
-		return // chunk ends cleanly on a newline boundary
+		return
 	}
 	breakPoint := utils.First(next.Buffer, func(b byte) bool { return b == newline })
 	curr.Buffer = append(curr.Buffer, next.Buffer[:breakPoint+1]...)
