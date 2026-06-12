@@ -205,7 +205,14 @@
 
 		<!-- Unsafe -->
 		<section class="mb-16">
-			<h2>Optimizing the Sequential Implementation with Unsafe.String()</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p5.go"
+					target="_blank"
+					rel="noopener"
+					>Optimizing the Sequential Implementation with Unsafe.String()</a
+				>
+			</h2>
 			<p>
 				At this point, I had a solution that I knew I could improve upon. The
 				first optimization I saw was the line parsing. I read through the
