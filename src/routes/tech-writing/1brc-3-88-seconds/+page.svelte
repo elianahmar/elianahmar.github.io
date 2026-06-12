@@ -422,20 +422,30 @@
 			</p>
 			<CodeBlock html={data.ptr} />
 			<h3>Synchronization</h3>
+			<p>In my final solution I utilized three buffered channels:</p>
+			<ul>
+				<li>
+					<code>rChan</code>
+					which stores the <code>Range</code> object so each go routine knows what
+					part of the file to read.
+				</li>
+				<li>
+					<code>mChan</code> carries a map for a single processed range
+				</li>
+				<li>
+					<code>rSig</code>
+					is a boolean signal that coordinates closing <code>mChan</code> only after
+					every goroutine for processing the ranges finishes.
+				</li>
+			</ul>
+
 			<p>
-				In my final solution I utilized three buffered channels: <code
-					>rChan</code
-				>
-				which stores the <code>Range</code> object so I know where to read and
-				how much to read.
-				<code>mChan</code> carries a map for a single processed range, and
-				<code>rSig</code>
-				is a boolean signal that coordinates closing <code>mChan</code> only
-				after every goroutine for processing the ranges finishes. The
+				The
 				<code>rSig</code>
 				signals the main thread's
-				<code>range mChan</code> to drain the channel and exit the loop after the
-				channel is fully consumed.
+				<code>range mChan</code> to drain the channel and exit the loop after
+				the channel is fully consumed. After implementing the changes, I clocked
+				my fastest runtime of <strong>3.88 seconds</strong>!!!
 			</p>
 			<CodeBlock html={data.p17} />
 		</section>
@@ -482,16 +492,16 @@
 				<li>
 					<strong>Microbenchmark</strong>
 					Don't assume things are fast or slow. Be scientific and microbenchmark,
-					this would have helped me bypass some misteps I made in my earlier implementations.
+					this would have helped me bypass misteps made in earlier implementations.
 					As I progressed through the challenge I became more familiar and comfortable
 					using go's built-in framework for benchmarking.
 				</li>
 				<li>
 					<strong>Concurrency != Fast</strong>
-					Do the simple thing first. A simple sequential implementation first would
-					have started me on the right path. This advice is a corollary to the idea
-					that "premature optimization is the root of all evil". In my case, it was.
-					My approach of adding complex concurrency in my initial implementations
+					Do the simple thing first. A simple sequential implementation done first
+					would have started me on the right path. This advice is a corollary to
+					the idea that "premature optimization is the root of all evil". In my case,
+					it was. My approach of applying complex concurrency in my initial implementations
 					set me on a trajectory that required a great deal of thought to correct
 					from later on.
 				</li>
@@ -507,9 +517,9 @@
 						rel="noopener">Profile Guided Optimization</a
 					>
 					The content in this video lives in my head, rent-free. Understanding what
-					memory lives on the stack versus the heap is super important to understand
-					if you aim to write fast code. A lack of understanding would rear itself
-					in this challenge, because ideally you want a solution that has a minimal
+					memory lives on the stack versus the heap is critical to understand if
+					you aim to write performant code. A lack of understanding would rear itself
+					in this challenge because ideally, you want a solution that has a minimal
 					memory footprint, so you want to keep as much memory on the stack as possible.
 				</li>
 
@@ -518,7 +528,7 @@
 					for me was that it's not a bad thing to write code tuned for the data if
 					you have guarantees about the shape of the data. A large portion of optimizing
 					the code was simply replacing the standard library implementation with
-					my own.
+					my own and removing what I didn't need.
 				</li>
 			</ul>
 		</section>
@@ -536,24 +546,24 @@
 			<p>
 				Suffice it to say, I deal with matters of performance every day, and
 				it's something I genuinely love spending time on. Historically, the
-				times I have learned the most as a engineer are when I'm fixing a really
-				difficult bug or doing performance optimization like this. These
+				times I have learned the most as an engineer are when I'm fixing a
+				really difficult bug or doing performance optimization like this. These
 				problems require me to dig deep.
 			</p>
 			<p>
 				Philosophically, I believe building performant systems is how you make
 				the world a better place. In many cases, performance could mean life and
-				death. For me it most certainly doesn't. But building software that is
+				death. For me, it most certainly doesn't. But, building software that is
 				highly performant makes my users more efficient and happier, and that's
 				enough for me!
 			</p>
 			<p>
 				The final result: <strong>3.88 seconds on 1 billion rows of text</strong
-				> on my MacBook Pro. This was easily one of the most fun projects I've ever
-				done. It forced me to squeeze every last drop from my tools, scrutinize every
-				line of code from the standard library, and devise crafty tricks to shave
-				off latency. The feeling of seeing slow code become blazing fast is a victory
-				that never gets old.
+				> on my MacBook Pro. This was easily one of the most enjoyable projects I've
+				ever done. It forced me to squeeze every last drop from my tools, scrutinize
+				every line of code from the standard library, and devise crafty tricks to
+				shave off every bit of latency. The feeling of seeing slow code become blazing
+				fast is a victory that never gets old!
 			</p>
 		</section>
 	</div>
