@@ -260,19 +260,19 @@
 				<a
 					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p9.go"
 					target="_blank"
-					rel="noopener">Manual Parsing of Lines + Int Conversion</a
+					rel="noopener">Manual Parsing of Temperature + Int Conversion</a
 				>
 			</h2>
 			<p>
 				At this point, things were getting a bit more involved. I was
 				scrutinizing every line of code, reading through the source of every
 				standard library function I was using, and pondering how I could write
-				my own implementation that was finely tuned for my problem. Analysis of
-				my code through that lens brought me to two next steps.
+				my own implementation that was finely tuned for the problem. Analysis of
+				my code through that lens made the next steps clear.
 			</p>
 			<p>
-				The next two steps were: 1) manually parse each line and 2) cast the
-				float values to integers, to enable faster arithmetic operations in
+				The next two steps were: 1) manually parse each temperature and 2) cast
+				the float values to integers, to enable faster arithmetic operations in
 				addition to avoiding annoying rounding errors. This brought the runtime
 				from 56 seconds to
 				<strong>44 seconds</strong>.
@@ -283,7 +283,7 @@
 				and clear it on each call with <code>numByte[:0]</code>. This keeps the
 				memory on the stack rather than escaping to the heap. I learned this
 				trick from performance-sensitive work at my day job. My Go LSP has an
-				option to surface the compiler's escape analysis, which helped me catch
+				option to surface the compiler optimizations, which helped me catch
 				this.
 			</Callout>
 		</section>
