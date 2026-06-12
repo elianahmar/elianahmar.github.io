@@ -382,7 +382,13 @@
 
 		<!-- Single pass -->
 		<section class="mb-16">
-			<h2>Single Pass Parsing + Concurrent Range Computations</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p17.go"
+					target="_blank"
+					rel="noopener">Single Pass Parsing + Concurrent Range Computations</a
+				>
+			</h2>
 			<p>
 				I could have wrapped up here, but I knew I could do better. After
 				reviewing my code and reading through the dumps I realized there were
