@@ -325,7 +325,13 @@
 
 		<!-- Chunk reading -->
 		<section class="mb-16">
-			<h2>Revisiting Chunk File Reading</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p13.go"
+					target="_blank"
+					rel="noopener">Revisiting Chunk File Reading</a
+				>
+			</h2>
 			<p>
 				I was seriously scratching my head at this point. I knew better
 				solutions existed and I had heard of engineers who solved the challenge
