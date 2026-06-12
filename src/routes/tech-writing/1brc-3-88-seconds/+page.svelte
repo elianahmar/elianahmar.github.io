@@ -327,38 +327,38 @@
 			<p>
 				I was seriously scratching my head at this point. I knew better
 				solutions existed and I had heard of engineers who solved the challenge
-				in under 5 seconds. The pprof dumps were still showing syscalls
-				consuming a majority of the latency, which made sense since I was still
-				scanning each line one at a time. So I started to microbenchmark
-				different ways of reading the file. The cpu profile made the bottleneck
-				obvious:
+				in under 5 seconds. I reviewed the cpu profile which made the bottleneck
+				obvious. <code>fileScanner.Scan()</code> was consuming 98.66% of total runtime.
+				Every line was a separate syscall, and that cost was dominating the runtime.
+				So I started to microbenchmark different ways of reading the file.
 			</p>
 			<CodeBlock html={data.p4Dump} />
 			<p>
-				<code>fileScanner.Scan()</code> was consuming 98.66% of total runtime. Every
-				line was a separate syscall, and that cost was dominating the runtime. A
-				microbenchmark confirmed that chunked reading over the entire file took about
-				three seconds. Which was nearly 10x faster than line-by-line scanning. Equipped
-				with this evidence, my path forward was clear.
+				I began experimenting with chunked file reading with different buffer
+				sizes. After microbenchmarking the performance I observed chunked
+				reading over the entire file with a buffer size of 4mb took about three
+				seconds. Which was nearly 10x faster than scanning lines. Equipped with
+				this evidence, my path forward was clear.
 			</p>
 			<p>
 				Since my initial chunked reading attempt had failed, I'd brushed off the
 				idea. But after revisiting it, I realized it was the only way to get a
-				truly performant solution. If you remember earlier I had mentioned that
-				the key issue with chunked file reading is that the boundary of the
-				chunks could be landing in the middle of a line. However, after some
-				more research into the docs I had discovered
-				<code>bytes.LastIndexByte()</code> which completely resolved my issue. What
-				I ended up doing is reading chunks of the files and tracking the last newline
-				break using the API mentioned. From there, I now had a valid range which
-				contained a starting index which would be the first character of a line and
-				an end index which would always land on a newline. I would store these ranges
-				in a list, and from that list I could concurrently read and process all of
-				the data for each chunk of the data.
+				truly performant solution. Earlier, I had mentioned that the key issue
+				with chunked file reading is that the boundary of the chunks could be
+				landing in the middle of a line. However, after some more research into
+				the docs I had discovered
+				<code>bytes.LastIndexByte()</code> which simplified my implementation.
+				Being a couple days wiser I implemented chunked file reading with logic
+				for seeking the last newline using the API mentioned. From there, I
+				would construct a <code>Range</code> containing a start index and end index
+				mapping to the first character of the byte chunk and an end index mapping
+				to the last newline character in the chunk. I would store these ranges in
+				a list, and utilize a worker pattern to concurrently read and process all
+				of the data for each chunk of the data.
 			</p>
 			<p>
-				Low and behold I had struck gold because those two modifications brought
-				me from 38 seconds all the way to <strong>12 seconds</strong> - a 3x speedup!
+				I had struck gold because those two modifications brought me from 38
+				seconds all the way to <strong>12 seconds</strong> - a 3x speedup!
 			</p>
 			<CodeBlock html={data.p13} />
 			<Callout>
