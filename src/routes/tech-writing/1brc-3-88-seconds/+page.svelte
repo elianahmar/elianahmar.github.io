@@ -288,7 +288,13 @@
 
 		<!-- Remove bytes.Cut -->
 		<section class="mb-16">
-			<h2>Remove bytes.Cut()</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p11.go"
+					target="_blank"
+					rel="noopener">Remove bytes.Cut()</a
+				>
+			</h2>
 			<p>
 				Now, in the previous section I mentioned that I was manually parsing the
 				line. However, that was half true. The float-to-int conversion handled
