@@ -341,23 +341,23 @@
 				this evidence, my path forward was clear.
 			</p>
 			<p>
-				Since my initial chunked reading attempt had failed, I'd brushed off the
-				idea. But after revisiting it, I realized it was the only way to get a
-				truly performant solution. Earlier, I had mentioned that the key issue
-				with chunked file reading is that the boundary of the chunks could be
-				landing in the middle of a line. However, after some more research into
-				the docs I had discovered
+				Since my initial attempt at chunked file reading failed, I'd brushed off
+				the idea. But after revisiting it, I realized it was the only way to get
+				a performant solution. Earlier, I had mentioned that the key issue with
+				chunked file reading is that the boundary of the chunk could land in the
+				middle of a line. However, after some more research into the docs I had
+				discovered
 				<code>bytes.LastIndexByte()</code> which simplified my implementation.
-				Being a couple days wiser I implemented chunked file reading with logic
+				Being a couple days wiser, I implemented chunked file reading with logic
 				for seeking the last newline using the API mentioned. From there, I
-				would construct a <code>Range</code> containing a start index and end index
-				mapping to the first character of the byte chunk and an end index mapping
-				to the last newline character in the chunk. I would store these ranges in
-				a list, and utilize a worker pattern to concurrently read and process all
-				of the data for each chunk of the data.
+				would construct a <code>Range</code> containing a start and end index mapping
+				to the first character of the byte chunk and last newline character in the
+				chunk respectively. I would store the ranges in a list, and utilize a worker
+				pattern to concurrently read and process all of the data for each chunk of
+				the data.
 			</p>
 			<p>
-				I had struck gold because those two modifications brought me from 38
+				I had struck gold because those two optimizations brought me from 38
 				seconds all the way to <strong>12 seconds</strong> - a 3x speedup!
 			</p>
 			<CodeBlock html={data.p13} />
@@ -366,9 +366,9 @@
 				multiple go routines simultaneously writing to a map requires
 				synchronization via a shared mutex. I instinctually knew that a mutex in
 				this case would slow my program down. Instead of updating a single map
-				across multiple go routines with mutex, I just created a new map for
-				every go routine, and push the resulting map to a channel to be
-				processed on the main thread. This worked flawlessly.
+				across multiple go routines with mutex, I created a new map for every go
+				routine, and pushed the resulting map to a channel to be consumed on the
+				main thread. This worked flawlessly.
 			</Callout>
 		</section>
 
