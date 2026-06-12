@@ -298,16 +298,6 @@
 				>
 			</h2>
 			<p>
-				Now, in the previous section I mentioned that I was manually parsing the
-				line. However, that was half true. The float-to-int conversion handled
-				the temperature parsing, but I was still relying on <code
-					>bytes.Cut()</code
-				>
-				to locate the
-				<code>;</code> delimiter and split the city from the temperature. That was
-				the next thing to go.
-			</p>
-			<p>
 				Now, things were getting serious. If I want to make this code fast,
 				every line of code - be it mine or from the standard library - must
 				serve a purpose. So <code>bytes.Cut()</code> had to go. There was just
@@ -317,10 +307,10 @@
 				<code>&lt;city&gt;;&lt;temperature&gt;\n</code>.
 			</p>
 			<p>
-				I could parse all of this myself, and doing so ensures I avoid the extra
-				allocations and boundary checking that the method does under the hood. I
-				wrote out the logic for parsing the whole line manually, bringing the
-				runtime from 44 seconds to <strong>38 seconds</strong>.
+				I could implement this parsing myself, and doing so ensures I avoid the
+				extra allocations and boundary checking that the method does under the
+				hood. I hand-rolled a parser for capturing the city and temperature,
+				bringing the runtime from 44 seconds to <strong>38 seconds</strong>.
 			</p>
 			<CodeBlock html={data.p11} />
 		</section>
