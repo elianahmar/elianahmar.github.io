@@ -184,11 +184,11 @@
 				>
 			</h2>
 			<p>
-				After some time trying to optimize a fundamentally flawed solution I had
-				to take a step back. I decided to restart and completely rewrite the
-				solution from scratch with one important caveat: the entire solution
-				would run on the main thread. No concurrency, just plain line scanning,
-				parsing, and map updates.
+				After spending time trying to optimize a flawed solution I had to take a
+				step back. I decided to restart and rewrite the solution from scratch
+				with one important caveat: the entire solution would run on the main
+				thread. No concurrency, just plain line scanning, parsing, and map
+				updates.
 			</p>
 			<p>
 				And boom! I had my fastest solution yet. My new runtime came down to
