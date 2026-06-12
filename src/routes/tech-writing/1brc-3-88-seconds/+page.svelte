@@ -115,7 +115,13 @@
 
 		<!-- Baseline -->
 		<section class="mb-16">
-			<h2>Baseline Implementation</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p1.go"
+					target="_blank"
+					rel="noopener">Baseline Implementation</a
+				>
+			</h2>
 			<p>
 				To get started, I first needed to set up some boilerplate. I added pprof
 				profiling for capturing heap and cpu dumps in addition to file writing
@@ -140,7 +146,13 @@
 
 		<!-- Wrong direction -->
 		<section class="mb-16">
-			<h2>Steps in the Wrong Direction: More Concurrency</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p3.go"
+					target="_blank"
+					rel="noopener">Steps in the Wrong Direction: More Concurrency</a
+				>
+			</h2>
 			<p>
 				After seeing my first result, I thought I could improve the runtime by
 				chunk-reading the file and pushing each chunk to be processed. I could
@@ -163,7 +175,13 @@
 
 		<!-- Sequential -->
 		<section class="mb-16">
-			<h2>Reset... Write Everything Sequentially</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p4.go"
+					target="_blank"
+					rel="noopener">Reset... Write Everything Sequentially</a
+				>
+			</h2>
 			<p>
 				After some time trying to optimize a fundamentally flawed solution I had
 				to take a step back. I decided to restart and completely rewrite the
@@ -187,7 +205,14 @@
 
 		<!-- Unsafe -->
 		<section class="mb-16">
-			<h2>Optimizing the Sequential Implementation with Unsafe.String()</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p5.go"
+					target="_blank"
+					rel="noopener"
+					>Optimizing the Sequential Implementation with Unsafe.String()</a
+				>
+			</h2>
 			<p>
 				At this point, I had a solution that I knew I could improve upon. The
 				first optimization I saw was the line parsing. I read through the
@@ -229,7 +254,13 @@
 
 		<!-- Int conversion -->
 		<section class="mb-16">
-			<h2>Manual Parsing of Lines + Int Conversion</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p9.go"
+					target="_blank"
+					rel="noopener">Manual Parsing of Lines + Int Conversion</a
+				>
+			</h2>
 			<p>
 				At this point, things were getting a bit more involved. I was
 				scrutinizing every line of code, reading through the source of every
@@ -257,7 +288,13 @@
 
 		<!-- Remove bytes.Cut -->
 		<section class="mb-16">
-			<h2>Remove bytes.Cut()</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p11.go"
+					target="_blank"
+					rel="noopener">Remove bytes.Cut()</a
+				>
+			</h2>
 			<p>
 				Now, in the previous section I mentioned that I was manually parsing the
 				line. However, that was half true. The float-to-int conversion handled
@@ -288,7 +325,13 @@
 
 		<!-- Chunk reading -->
 		<section class="mb-16">
-			<h2>Revisiting Chunk File Reading</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p13.go"
+					target="_blank"
+					rel="noopener">Revisiting Chunk File Reading</a
+				>
+			</h2>
 			<p>
 				I was seriously scratching my head at this point. I knew better
 				solutions existed and I had heard of engineers who solved the challenge
@@ -339,7 +382,13 @@
 
 		<!-- Single pass -->
 		<section class="mb-16">
-			<h2>Single Pass Parsing + Concurrent Range Computations</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p17.go"
+					target="_blank"
+					rel="noopener">Single Pass Parsing + Concurrent Range Computations</a
+				>
+			</h2>
 			<p>
 				I could have wrapped up here, but I knew I could do better. After
 				reviewing my code and reading through the dumps I realized there were
