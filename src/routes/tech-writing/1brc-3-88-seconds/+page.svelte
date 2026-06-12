@@ -198,9 +198,9 @@
 			<Callout>
 				The Go standard library offers a clean API for reading a file line by
 				line. I used <code>bufio.Scanner</code>
-				to scan every line and update a map. What's also nice about this API is that
-				it uses a fixed size buffer under the hood which allowed me to tune and benchmark
-				different buffer sizes.
+				to scan every line and update a map. Under the hood, the default buffer size
+				is 4096 bytes and you can set a maximum token size. For this challenge, I
+				didn't need to tweak the default options.
 			</Callout>
 		</section>
 
