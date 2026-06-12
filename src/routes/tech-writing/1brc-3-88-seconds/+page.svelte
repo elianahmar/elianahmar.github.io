@@ -146,7 +146,13 @@
 
 		<!-- Wrong direction -->
 		<section class="mb-16">
-			<h2>Steps in the Wrong Direction: More Concurrency</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p3.go"
+					target="_blank"
+					rel="noopener">Steps in the Wrong Direction: More Concurrency</a
+				>
+			</h2>
 			<p>
 				After seeing my first result, I thought I could improve the runtime by
 				chunk-reading the file and pushing each chunk to be processed. I could
@@ -169,7 +175,13 @@
 
 		<!-- Sequential -->
 		<section class="mb-16">
-			<h2>Reset... Write Everything Sequentially</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p4.go"
+					target="_blank"
+					rel="noopener">Reset... Write Everything Sequentially</a
+				>
+			</h2>
 			<p>
 				After some time trying to optimize a fundamentally flawed solution I had
 				to take a step back. I decided to restart and completely rewrite the
