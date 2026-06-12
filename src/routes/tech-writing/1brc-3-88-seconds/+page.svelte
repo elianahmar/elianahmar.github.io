@@ -87,7 +87,7 @@
 
 			<p>
 				For all of the cities you must compute the min, max, and average
-				temperature for each city. For those who are interested, here is
+				temperature. For those who are interested, here is
 				<a
 					href="https://github.com/gunnarmorling/1brc"
 					target="_blank"
@@ -124,12 +124,14 @@
 				>
 			</h2>
 			<p>
-				To get started, I first needed to set up some boilerplate. I added pprof
-				profiling for capturing heap and cpu dumps in addition to file writing
-				which would tie the dump to the specific date and the implementation it
-				came from. Then, I added command-line arg parsing so I could freely run
-				multiple implementations. And lastly, I added validation logic for
-				comparing my measurements against the solution.
+				To get started, I first needed to set up some boilerplate. I added <code
+					>pprof</code
+				>
+				for capturing heap and cpu profiles in addition to file writing which would
+				tie the profile to the specific date and the implementation it came from.
+				Then, I added command-line arg parsing so I could freely run multiple implementations.
+				And lastly, I added validation logic for comparing my measurements against
+				the solution.
 			</p>
 			<p>
 				With the boilerplate out of the way, I then began my baseline
@@ -309,8 +311,10 @@
 			<p>
 				I could implement this parsing myself, and doing so ensures I avoid the
 				extra allocations and boundary checking that the method does under the
-				hood. I hand-rolled a parser for capturing the city and temperature,
-				bringing the runtime from 44 seconds to <strong>38 seconds</strong>.
+				hood. So I went ahead and hand-rolled a parser for capturing the city
+				and temperature, bringing the runtime from 44 seconds to <strong
+					>38 seconds</strong
+				>.
 			</p>
 			<CodeBlock html={data.p11} />
 		</section>
@@ -328,14 +332,14 @@
 				I was seriously scratching my head at this point. I knew better
 				solutions existed and I had heard of engineers who solved the challenge
 				in under 5 seconds. I reviewed the cpu profile which made the bottleneck
-				obvious. <code>fileScanner.Scan()</code> was consuming 98.66% of total runtime.
-				Every line was a separate syscall, and that cost was dominating the runtime.
-				So I started to microbenchmark different ways of reading the file.
+				obvious. <code>fileScanner.Scan()</code> was the clear culprit. Every line
+				was a separate syscall, and that cost was dominating the runtime. So I started
+				to microbenchmark different ways of reading the file.
 			</p>
 			<CodeBlock html={data.p4Dump} />
 			<p>
 				I began experimenting with chunked file reading with different buffer
-				sizes. After microbenchmarking the performance I observed chunked
+				sizes. After microbenchmarking the performance, I observed chunked
 				reading over the entire file with a buffer size of 4mb took about three
 				seconds. Which was nearly 10x faster than scanning lines. Equipped with
 				this evidence, my path forward was clear.
@@ -348,13 +352,15 @@
 				middle of a line. However, after some more research into the docs I had
 				discovered
 				<code>bytes.LastIndexByte()</code> which simplified my implementation.
+			</p>
+			<p>
 				Being a couple days wiser, I implemented chunked file reading with logic
 				for seeking the last newline using the API mentioned. From there, I
 				would construct a <code>Range</code> containing a start and end index mapping
 				to the first character of the byte chunk and last newline character in the
 				chunk respectively. I would store the ranges in a list, and utilize a worker
-				pattern to concurrently read and process all of the data for each chunk of
-				the data.
+				pattern to concurrently read and process all of the temperature data for
+				each chunk.
 			</p>
 			<p>
 				I had struck gold because those two optimizations brought me from 38
@@ -366,9 +372,9 @@
 				multiple go routines simultaneously writing to a map requires
 				synchronization via a shared mutex. I instinctually knew that a mutex in
 				this case would slow my program down. Instead of updating a single map
-				across multiple go routines with mutex, I created a new map for every go
-				routine, and pushed the resulting map to a channel to be consumed on the
-				main thread. This worked flawlessly.
+				across multiple go routines, I created a new map for every go routine,
+				and pushed the resulting map to a channel to be consumed on the main
+				thread. This worked flawlessly.
 			</Callout>
 		</section>
 
@@ -383,11 +389,14 @@
 			</h2>
 			<p>
 				I could have wrapped up here, but I knew I could do better. After
-				reviewing my code and reading through the dumps I realized there were
+				reviewing my code and reading through the profiles I realized there were
 				still three more opportunities for me to improve the performance:
 			</p>
 			<ol>
-				<li>Parse the digits and construct a number in a single pass</li>
+				<li>
+					Parse the city and digits and construct the temperature in a single
+					pass
+				</li>
 				<li>
 					Correctly manage the byte pointer and ensure no out-of-bounds reads.
 				</li>

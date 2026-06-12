@@ -88,7 +88,6 @@ export const p5Code = `func (p5 *P5) Compute() map[string]*model.Measurement { /
 }`;
 
 export const p9Code = `func (p9 *P9) Compute() map[string]*model.MeasurementInt { // 44 seconds
-	// Allocating numByte here keeps it on the stack — no heap escape
 	numByte := make([]byte, 0, 8)
 	parse := func(num []byte) (int, error) {
 		numByte = numByte[:0] // clear without reallocating
