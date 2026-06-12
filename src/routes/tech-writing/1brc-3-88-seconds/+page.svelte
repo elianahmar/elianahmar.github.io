@@ -389,7 +389,7 @@
 			<ol>
 				<li>Parse the digits and construct a number in a single pass</li>
 				<li>
-					Correctly manage the byte pointer and ensure no out-of-bounds reads
+					Correctly manage the byte pointer and ensure no out-of-bounds reads.
 				</li>
 				<li>
 					Properly synchronize the range producer and consumer, with the main

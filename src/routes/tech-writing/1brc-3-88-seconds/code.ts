@@ -385,6 +385,6 @@ export const singlePassDigit = `num = -12.4
 line[0] = '-', continue
 line[1] = '1', temp = 0 * 10 + int('1' - '0') => 1
 line[2] = '2', temp = 1 * 10 + int('2' - '0') => 12
-line[2] = '.', continue
-line[3] = '4', temp = 12 * 10 + int('4' - '0') => 124`
+line[3] = '.', continue
+line[4] = '4', temp = 12 * 10 + int('4' - '0') => 124`
 
