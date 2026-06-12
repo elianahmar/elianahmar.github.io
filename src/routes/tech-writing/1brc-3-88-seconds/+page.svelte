@@ -92,13 +92,14 @@
 					href="https://github.com/gunnarmorling/1brc"
 					target="_blank"
 					rel="noopener">the official repository for the challenge</a
-				>. Two important constraints of this problem are the following:
+				>. Two important constraints for this problem:
 			</p>
 			<ul>
 				<li>Only packages from the standard library are allowed</li>
 				<li>
-					Absolutely no LLM Code generation. I enjoy using AI tools and see
-					their utility, but I just don't learn if I don't struggle myself!
+					Absolutely no LLM Code generation. This is a self-imposed rule. I
+					enjoy using AI tools and see their utility, but I just don't learn if
+					I don't struggle myself!
 				</li>
 			</ul>
 			<p>
@@ -165,9 +166,9 @@
 				which the boundaries of the byte chunks land somewhere in the middle of
 				a line. My fix was to scan each chunk boundary after reading: if a chunk
 				didn't end on a newline, I'd find the first newline in the next chunk
-				and append it to the current chunk. Reconciling each chunk made the
-				solution significantly slower and more complex than the naive
-				line-by-line approach.
+				and append it to the current chunk. However, where I went wrong
+				initially was that I was still scanning each line and pushing each line
+				to a channel which I realized later wasn't neccessary.
 			</p>
 			<CodeBlock html={data.reconcile} />
 			<p>This was the first real hurdle I had in the challenge.</p>
