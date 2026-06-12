@@ -254,7 +254,13 @@
 
 		<!-- Int conversion -->
 		<section class="mb-16">
-			<h2>Manual Parsing of Lines + Int Conversion</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p9.go"
+					target="_blank"
+					rel="noopener">Manual Parsing of Lines + Int Conversion</a
+				>
+			</h2>
 			<p>
 				At this point, things were getting a bit more involved. I was
 				scrutinizing every line of code, reading through the source of every
