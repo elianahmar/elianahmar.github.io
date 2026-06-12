@@ -218,9 +218,10 @@
 				At this point, I had a solution that I knew I could improve upon. The
 				first optimization I saw was the line parsing. I read through the
 				implementation of <code>bytes.Cut</code> and noticed it contained extra computation
-				that was not necessary for my solution. I also was not a fan of the fact
-				that I was reading and copying data when updating my map. Instinctually,
-				I knew I could do better.
+				that was not necessary for my solution. Eventually, I knew I would need to
+				migrate away from this implementation. I also was not a fan of the fact that
+				I was reading and copying data when updating my map. Instinctually, I knew
+				I could do better.
 			</p>
 			<p>
 				This brought me to Go's <code>unsafe.String</code>. The TL;DR is that
@@ -232,7 +233,7 @@
 				is an O(n) operation because it copies the bytes. With
 				<code>unsafe</code> however, that cost becomes O(1). Using
 				<code>unsafe</code> can be dangerous if the underlying byte array changes
-				(which it does), but I knew I had a powerful tool here for reducing latency.
+				(which it does), but I knew I had a powerful tool for reducing latency.
 			</p>
 			<p>
 				The subtle but powerful trick was that I utilized <code>unsafe</code> to
@@ -244,12 +245,12 @@
 			<CodeBlock html={data.p5} />
 			<Callout>
 				You might be wondering, why do I need to copy the unsafe string in the
-				case of an unseen city? The rationale behind this code is that the
-				underlying byte array is being used for reading the file and it's
-				contents can change. If I use the unsafe string as the key for the map,
-				the underlying memory address for the key would become corrupted since
-				the data in the buffer could change as we continue to read more bytes
-				from the file.
+				case of an unseen city? The rationale is that the underlying byte array
+				being used for reading the file is not immutable and it's contents can
+				change. If I use the unsafe string as the key for the map, the
+				underlying content stored at the memory address would become corrupted
+				since the data in the buffer could change as we continue to read more
+				bytes from the file.
 			</Callout>
 		</section>
 
