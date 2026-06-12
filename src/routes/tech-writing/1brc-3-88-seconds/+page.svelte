@@ -115,7 +115,13 @@
 
 		<!-- Baseline -->
 		<section class="mb-16">
-			<h2>Baseline Implementation</h2>
+			<h2>
+				<a
+					href="https://github.com/elianahmar/1brc-personal/blob/main/pkg/preprocessor/p1.go"
+					target="_blank"
+					rel="noopener">Baseline Implementation</a
+				>
+			</h2>
 			<p>
 				To get started, I first needed to set up some boilerplate. I added pprof
 				profiling for capturing heap and cpu dumps in addition to file writing
