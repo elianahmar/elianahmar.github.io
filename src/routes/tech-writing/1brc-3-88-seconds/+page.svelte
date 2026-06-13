@@ -439,7 +439,8 @@
 					part of the file to read.
 				</li>
 				<li>
-					<code>mChan</code> carries a map for a single processed range
+					<code>mChan</code> carries the maps of measurements for produced after
+					a range has been processed
 				</li>
 				<li>
 					<code>rSig</code>
@@ -470,8 +471,8 @@
 				</li>
 				<li>
 					<strong>Custom map implementation</strong> - some solutions do this,
-					but Go 1.24 introduced Swiss tables for the default map which is
-					optimized for reads.
+					but as of Go 1.24 the default map implementation is backed by a swiss
+					table which are optimized for reads.
 					<a
 						href="https://go.dev/blog/swisstable"
 						target="_blank"
@@ -503,7 +504,7 @@
 					Don't assume things are fast or slow. Be scientific and microbenchmark,
 					this would have helped me bypass misteps made in earlier implementations.
 					As I progressed through the challenge I became more familiar and comfortable
-					using go's built-in framework for benchmarking.
+					using Go's built-in framework for benchmarking.
 				</li>
 				<li>
 					<strong>Concurrency != Fast</strong>
@@ -524,12 +525,12 @@
 						href="https://youtu.be/FwzE5Sdhhdw?si=qexWqVrz-2cl39jr"
 						target="_blank"
 						rel="noopener">Profile Guided Optimization</a
-					>
-					The content in this video lives in my head, rent-free. Understanding what
-					memory lives on the stack versus the heap is critical to understand if
-					you aim to write performant code. A lack of understanding would rear itself
-					in this challenge because ideally, you want a solution that has a minimal
-					memory footprint, so you want to keep as much memory on the stack as possible.
+					>. The content in this video lives in my head, rent-free.
+					Understanding what memory lives on the stack versus the heap is
+					critical to understand if you aim to write performant code. A lack of
+					understanding would rear itself in this challenge because ideally, you
+					want a solution that has a minimal memory footprint, so you want to
+					keep as much memory on the stack as possible.
 				</li>
 
 				<li>
@@ -547,10 +548,11 @@
 			<h2>Conclusion</h2>
 			<p>
 				If you read this far, thank you. You might be wondering - what's the
-				point? Why do all of this? In my day job, I write services that provide
-				observability and enable changes to hundreds of thousands of deployments
-				across thousands of Kubernetes clusters. And I've built and optimized
-				this service to such a degree that it runs entirely on a single pod.
+				point? Why do all of this? In my day job, I build and maintain services
+				that provide observability and enable changes to hundreds of thousands
+				of deployments across thousands of Kubernetes clusters. And, for one
+				service in particular, I've built and optimized this service to such a
+				degree that it runs entirely on a single pod.
 			</p>
 			<p>
 				Suffice it to say, I deal with matters of performance every day, and
