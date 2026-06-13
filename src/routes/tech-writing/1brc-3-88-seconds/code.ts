@@ -88,7 +88,6 @@ export const p5Code = `func (p5 *P5) Compute() map[string]*model.Measurement { /
 }`;
 
 export const p9Code = `func (p9 *P9) Compute() map[string]*model.MeasurementInt { // 44 seconds
-	// Allocating numByte here keeps it on the stack — no heap escape
 	numByte := make([]byte, 0, 8)
 	parse := func(num []byte) (int, error) {
 		numByte = numByte[:0] // clear without reallocating
@@ -342,9 +341,8 @@ export const reconcileCode = `func reconcileLines(readChunks []ReadChunk) {
 func reconcileChunks(curr *ReadChunk, next *ReadChunk) {
 	bufLen := len(curr.Buffer)
 	if curr.Buffer[bufLen-1] == newline {
-		return // chunk ends cleanly on a newline boundary
+		return
 	}
-	// Find the first newline in the next chunk and steal everything up to it
 	breakPoint := utils.First(next.Buffer, func(b byte) bool { return b == newline })
 	curr.Buffer = append(curr.Buffer, next.Buffer[:breakPoint+1]...)
 	next.Buffer = next.Buffer[breakPoint+1:]
@@ -386,6 +384,6 @@ export const singlePassDigit = `num = -12.4
 line[0] = '-', continue
 line[1] = '1', temp = 0 * 10 + int('1' - '0') => 1
 line[2] = '2', temp = 1 * 10 + int('2' - '0') => 12
-line[2] = '.', continue
-line[3] = '4', temp = 12 * 10 + int('4' - '0') => 124`
+line[3] = '.', continue
+line[4] = '4', temp = 12 * 10 + int('4' - '0') => 124`
 
